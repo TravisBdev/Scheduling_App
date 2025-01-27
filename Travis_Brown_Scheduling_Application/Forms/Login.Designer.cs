@@ -33,35 +33,37 @@
             btnLoginSubmit = new Button();
             lblLoginUserName = new Label();
             lblLoginPassword = new Label();
+            lblLoginLogo = new Label();
+            lblLoginWelcome = new Label();
             SuspendLayout();
             // 
             // lblLoginTitle
             // 
             lblLoginTitle.AutoSize = true;
-            lblLoginTitle.Font = new Font("Calibri", 20F, FontStyle.Bold);
-            lblLoginTitle.Location = new Point(180, 9);
+            lblLoginTitle.Font = new Font("Calibri", 16F, FontStyle.Bold);
+            lblLoginTitle.Location = new Point(180, 161);
             lblLoginTitle.Name = "lblLoginTitle";
-            lblLoginTitle.Size = new Size(75, 33);
+            lblLoginTitle.Size = new Size(60, 27);
             lblLoginTitle.TabIndex = 0;
             lblLoginTitle.Text = "Login";
             // 
             // tbLoginUserName
             // 
-            tbLoginUserName.Location = new Point(128, 117);
+            tbLoginUserName.Location = new Point(128, 217);
             tbLoginUserName.Name = "tbLoginUserName";
             tbLoginUserName.Size = new Size(181, 23);
             tbLoginUserName.TabIndex = 1;
             // 
             // tbLoginPassword
             // 
-            tbLoginPassword.Location = new Point(128, 215);
+            tbLoginPassword.Location = new Point(128, 271);
             tbLoginPassword.Name = "tbLoginPassword";
             tbLoginPassword.Size = new Size(181, 23);
             tbLoginPassword.TabIndex = 2;
             // 
             // btnLoginSubmit
             // 
-            btnLoginSubmit.Location = new Point(180, 300);
+            btnLoginSubmit.Location = new Point(180, 335);
             btnLoginSubmit.Name = "btnLoginSubmit";
             btnLoginSubmit.Size = new Size(75, 23);
             btnLoginSubmit.TabIndex = 3;
@@ -71,7 +73,7 @@
             // lblLoginUserName
             // 
             lblLoginUserName.AutoSize = true;
-            lblLoginUserName.Location = new Point(128, 99);
+            lblLoginUserName.Location = new Point(128, 199);
             lblLoginUserName.Name = "lblLoginUserName";
             lblLoginUserName.Size = new Size(60, 15);
             lblLoginUserName.TabIndex = 4;
@@ -80,17 +82,39 @@
             // lblLoginPassword
             // 
             lblLoginPassword.AutoSize = true;
-            lblLoginPassword.Location = new Point(128, 197);
+            lblLoginPassword.Location = new Point(128, 253);
             lblLoginPassword.Name = "lblLoginPassword";
             lblLoginPassword.Size = new Size(57, 15);
             lblLoginPassword.TabIndex = 5;
             lblLoginPassword.Text = "Password";
             // 
+            // lblLoginLogo
+            // 
+            lblLoginLogo.AutoSize = true;
+            lblLoginLogo.Font = new Font("Bauhaus 93", 25F);
+            lblLoginLogo.Location = new Point(117, 9);
+            lblLoginLogo.Name = "lblLoginLogo";
+            lblLoginLogo.Size = new Size(202, 39);
+            lblLoginLogo.TabIndex = 6;
+            lblLoginLogo.Text = "Global Corp";
+            // 
+            // lblLoginWelcome
+            // 
+            lblLoginWelcome.AutoSize = true;
+            lblLoginWelcome.Font = new Font("Calibri", 14F);
+            lblLoginWelcome.Location = new Point(56, 72);
+            lblLoginWelcome.Name = "lblLoginWelcome";
+            lblLoginWelcome.Size = new Size(372, 23);
+            lblLoginWelcome.TabIndex = 7;
+            lblLoginWelcome.Text = "Welcome! Please verify your credentials below.";
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(440, 383);
+            ClientSize = new Size(440, 398);
+            Controls.Add(lblLoginWelcome);
+            Controls.Add(lblLoginLogo);
             Controls.Add(lblLoginPassword);
             Controls.Add(lblLoginUserName);
             Controls.Add(btnLoginSubmit);
@@ -111,5 +135,7 @@
         private Button btnLoginSubmit;
         private Label lblLoginUserName;
         private Label lblLoginPassword;
+        private Label lblLoginLogo;
+        private Label lblLoginWelcome;
     }
 }
