@@ -73,9 +73,9 @@
             lblLoginUserName.AutoSize = true;
             lblLoginUserName.Location = new Point(128, 99);
             lblLoginUserName.Name = "lblLoginUserName";
-            lblLoginUserName.Size = new Size(65, 15);
+            lblLoginUserName.Size = new Size(60, 15);
             lblLoginUserName.TabIndex = 4;
-            lblLoginUserName.Text = "User Name";
+            lblLoginUserName.Text = "Username";
             // 
             // lblLoginPassword
             // 
