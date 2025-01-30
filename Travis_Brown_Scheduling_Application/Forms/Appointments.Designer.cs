@@ -24,18 +24,26 @@
         /// </summary>
         private void InitializeComponent() {
             dgvAllAppointments = new DataGridView();
-            mcalAppointmentPicker = new MonthCalendar();
-            label1 = new Label();
-            label2 = new Label();
             appointment_id = new DataGridViewTextBoxColumn();
             customer_name = new DataGridViewTextBoxColumn();
             appointment_type = new DataGridViewTextBoxColumn();
             appointment_start = new DataGridViewTextBoxColumn();
             appointment_end = new DataGridViewTextBoxColumn();
+            mcalAppointmentPicker = new MonthCalendar();
+            label1 = new Label();
+            label2 = new Label();
             btnAddAppointment = new Button();
             btnModAppointment = new Button();
-            button3 = new Button();
+            btnAppsExit = new Button();
             btnDeleteAppointment = new Button();
+            label3 = new Label();
+            cbAppMonths = new ComboBox();
+            label4 = new Label();
+            label5 = new Label();
+            btnViewSchedule = new Button();
+            label6 = new Label();
+            btnTotalApps = new Button();
+            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvAllAppointments).BeginInit();
             SuspendLayout();
             // 
@@ -49,30 +57,6 @@
             dgvAllAppointments.RowHeadersVisible = false;
             dgvAllAppointments.Size = new Size(503, 162);
             dgvAllAppointments.TabIndex = 0;
-            // 
-            // mcalAppointmentPicker
-            // 
-            mcalAppointmentPicker.Location = new Point(568, 27);
-            mcalAppointmentPicker.Name = "mcalAppointmentPicker";
-            mcalAppointmentPicker.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(100, 15);
-            label1.TabIndex = 2;
-            label1.Text = "All Appointments";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(568, 9);
-            label2.Name = "label2";
-            label2.Size = new Size(81, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Select by Date";
             // 
             // appointment_id
             // 
@@ -100,6 +84,30 @@
             appointment_end.HeaderText = "End";
             appointment_end.Name = "appointment_end";
             // 
+            // mcalAppointmentPicker
+            // 
+            mcalAppointmentPicker.Location = new Point(568, 27);
+            mcalAppointmentPicker.Name = "mcalAppointmentPicker";
+            mcalAppointmentPicker.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(100, 15);
+            label1.TabIndex = 2;
+            label1.Text = "All Appointments";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(568, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(81, 15);
+            label2.TabIndex = 3;
+            label2.Text = "Select by Date";
+            // 
             // btnAddAppointment
             // 
             btnAddAppointment.Location = new Point(12, 195);
@@ -118,14 +126,14 @@
             btnModAppointment.Text = "Modify Appointment";
             btnModAppointment.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnAppsExit
             // 
-            button3.Location = new Point(739, 268);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 6;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            btnAppsExit.Location = new Point(739, 536);
+            btnAppsExit.Name = "btnAppsExit";
+            btnAppsExit.Size = new Size(75, 23);
+            btnAppsExit.TabIndex = 6;
+            btnAppsExit.Text = "Exit";
+            btnAppsExit.UseVisualStyleBackColor = true;
             // 
             // btnDeleteAppointment
             // 
@@ -136,13 +144,94 @@
             btnDeleteAppointment.Text = "Delete Appointment";
             btnDeleteAppointment.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 16F);
+            label3.Location = new Point(354, 316);
+            label3.Name = "label3";
+            label3.Size = new Size(87, 30);
+            label3.TabIndex = 8;
+            label3.Text = "Reports";
+            // 
+            // cbAppMonths
+            // 
+            cbAppMonths.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbAppMonths.FormattingEnabled = true;
+            cbAppMonths.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
+            cbAppMonths.Location = new Point(12, 400);
+            cbAppMonths.MaxDropDownItems = 12;
+            cbAppMonths.Name = "cbAppMonths";
+            cbAppMonths.Size = new Size(131, 23);
+            cbAppMonths.TabIndex = 9;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(12, 382);
+            label4.Name = "label4";
+            label4.Size = new Size(77, 15);
+            label4.TabIndex = 10;
+            label4.Text = "Select Month";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(354, 382);
+            label5.Name = "label5";
+            label5.Size = new Size(55, 15);
+            label5.TabIndex = 11;
+            label5.Text = "Schedule";
+            // 
+            // btnViewSchedule
+            // 
+            btnViewSchedule.Location = new Point(354, 400);
+            btnViewSchedule.Name = "btnViewSchedule";
+            btnViewSchedule.Size = new Size(75, 23);
+            btnViewSchedule.TabIndex = 12;
+            btnViewSchedule.Text = "View";
+            btnViewSchedule.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(682, 382);
+            label6.Name = "label6";
+            label6.Size = new Size(111, 15);
+            label6.TabIndex = 13;
+            label6.Text = "Total Appointments";
+            // 
+            // btnTotalApps
+            // 
+            btnTotalApps.Location = new Point(682, 400);
+            btnTotalApps.Name = "btnTotalApps";
+            btnTotalApps.Size = new Size(64, 23);
+            btnTotalApps.TabIndex = 14;
+            btnTotalApps.Text = "Generate";
+            btnTotalApps.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(752, 400);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(39, 23);
+            textBox1.TabIndex = 15;
+            // 
             // Appointments
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(826, 303);
+            ClientSize = new Size(826, 571);
+            Controls.Add(textBox1);
+            Controls.Add(btnTotalApps);
+            Controls.Add(label6);
+            Controls.Add(btnViewSchedule);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(cbAppMonths);
+            Controls.Add(label3);
             Controls.Add(btnDeleteAppointment);
-            Controls.Add(button3);
+            Controls.Add(btnAppsExit);
             Controls.Add(btnModAppointment);
             Controls.Add(btnAddAppointment);
             Controls.Add(label2);
@@ -169,7 +258,15 @@
         private DataGridViewTextBoxColumn appointment_end;
         private Button btnAddAppointment;
         private Button btnModAppointment;
-        private Button button3;
+        private Button btnAppsExit;
         private Button btnDeleteAppointment;
+        private Label label3;
+        private ComboBox cbAppMonths;
+        private Label label4;
+        private Label label5;
+        private Button btnViewSchedule;
+        private Label label6;
+        private Button btnTotalApps;
+        private TextBox textBox1;
     }
 }
