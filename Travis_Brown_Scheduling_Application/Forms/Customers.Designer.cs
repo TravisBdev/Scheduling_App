@@ -30,6 +30,8 @@
             btnAddCustomer = new Button();
             btnModifyCustomer = new Button();
             btnExit = new Button();
+            btnDelete = new Button();
+            btnCancel = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCustomersList).BeginInit();
             SuspendLayout();
             // 
@@ -88,11 +90,31 @@
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
             // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(502, 60);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(75, 23);
+            btnDelete.TabIndex = 4;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new Point(502, 104);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(75, 23);
+            btnCancel.TabIndex = 5;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            // 
             // Customers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(671, 296);
+            Controls.Add(btnCancel);
+            Controls.Add(btnDelete);
             Controls.Add(btnExit);
             Controls.Add(btnModifyCustomer);
             Controls.Add(btnAddCustomer);
@@ -112,5 +134,7 @@
         private Button btnAddCustomer;
         private Button btnModifyCustomer;
         private Button btnExit;
+        private Button btnDelete;
+        private Button btnCancel;
     }
 }
