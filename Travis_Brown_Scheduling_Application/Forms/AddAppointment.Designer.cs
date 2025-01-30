@@ -35,7 +35,8 @@
             label2 = new Label();
             cbAppTimeSelect = new ComboBox();
             label3 = new Label();
-            btnExit = new Button();
+            btnCancel = new Button();
+            btnSave = new Button();
             gbAppointmentType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAppCustomerList).BeginInit();
             SuspendLayout();
@@ -148,21 +149,31 @@
             label3.TabIndex = 6;
             label3.Text = "Select Time";
             // 
-            // btnExit
+            // btnCancel
             // 
-            btnExit.Location = new Point(713, 415);
-            btnExit.Name = "btnExit";
-            btnExit.Size = new Size(75, 23);
-            btnExit.TabIndex = 7;
-            btnExit.Text = "Exit";
-            btnExit.UseVisualStyleBackColor = true;
+            btnCancel.Location = new Point(713, 415);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(75, 23);
+            btnCancel.TabIndex = 7;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            btnSave.Location = new Point(12, 415);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(75, 23);
+            btnSave.TabIndex = 8;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
             // 
             // AddAppointment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnExit);
+            Controls.Add(btnSave);
+            Controls.Add(btnCancel);
             Controls.Add(label3);
             Controls.Add(cbAppTimeSelect);
             Controls.Add(label2);
@@ -193,6 +204,7 @@
         private Label label2;
         private ComboBox cbAppTimeSelect;
         private Label label3;
-        private Button btnExit;
+        private Button btnCancel;
+        private Button btnSave;
     }
 }
