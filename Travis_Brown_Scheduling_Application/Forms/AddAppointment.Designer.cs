@@ -182,7 +182,7 @@
             Controls.Add(dgvAppCustomerList);
             Controls.Add(gbAppointmentType);
             Name = "AddAppointment";
-            Text = "AddAppointment";
+            Text = "Add Appointment";
             gbAppointmentType.ResumeLayout(false);
             gbAppointmentType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAppCustomerList).EndInit();
