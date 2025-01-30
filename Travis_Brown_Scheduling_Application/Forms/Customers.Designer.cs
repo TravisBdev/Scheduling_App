@@ -29,9 +29,9 @@
             btnExit = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
-            customerId = new DataGridViewTextBoxColumn();
-            customerName = new DataGridViewTextBoxColumn();
-            address = new DataGridViewTextBoxColumn();
+            customer_Id = new DataGridViewTextBoxColumn();
+            customer_Name = new DataGridViewTextBoxColumn();
+            customer_address = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvCustomersList).BeginInit();
             SuspendLayout();
             // 
@@ -39,7 +39,7 @@
             // 
             dgvCustomersList.AllowUserToAddRows = false;
             dgvCustomersList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomersList.Columns.AddRange(new DataGridViewColumn[] { customerId, customerName, address });
+            dgvCustomersList.Columns.AddRange(new DataGridViewColumn[] { customer_Id, customer_Name, customer_address });
             dgvCustomersList.Location = new Point(179, 12);
             dgvCustomersList.MultiSelect = false;
             dgvCustomersList.Name = "dgvCustomersList";
@@ -93,23 +93,23 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             // 
-            // customerId
+            // customer_Id
             // 
-            customerId.DataPropertyName = "customerId";
-            customerId.HeaderText = "ID";
-            customerId.Name = "customerId";
+            customer_Id.DataPropertyName = "customerId";
+            customer_Id.HeaderText = "ID";
+            customer_Id.Name = "customer_Id";
             // 
-            // customerName
+            // customer_Name
             // 
-            customerName.DataPropertyName = "customerName";
-            customerName.HeaderText = "Name";
-            customerName.Name = "customerName";
+            customer_Name.DataPropertyName = "customerName";
+            customer_Name.HeaderText = "Name";
+            customer_Name.Name = "customer_Name";
             // 
-            // address
+            // customer_address
             // 
-            address.DataPropertyName = "address";
-            address.HeaderText = "Address";
-            address.Name = "address";
+            customer_address.DataPropertyName = "address";
+            customer_address.HeaderText = "Address";
+            customer_address.Name = "customer_address";
             // 
             // Customers
             // 
@@ -136,8 +136,8 @@
         private Button btnExit;
         private Button btnDelete;
         private Button btnCancel;
-        private DataGridViewTextBoxColumn customerId;
-        private DataGridViewTextBoxColumn customerName;
-        private DataGridViewTextBoxColumn address;
+        private DataGridViewTextBoxColumn customer_Id;
+        private DataGridViewTextBoxColumn customer_Name;
+        private DataGridViewTextBoxColumn customer_address;
     }
 }
