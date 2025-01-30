@@ -24,14 +24,14 @@
         /// </summary>
         private void InitializeComponent() {
             dgvCustomersList = new DataGridView();
-            customerId = new DataGridViewTextBoxColumn();
-            customerName = new DataGridViewTextBoxColumn();
-            address = new DataGridViewTextBoxColumn();
             btnAddCustomer = new Button();
             btnModifyCustomer = new Button();
             btnExit = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
+            customerId = new DataGridViewTextBoxColumn();
+            customerName = new DataGridViewTextBoxColumn();
+            address = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvCustomersList).BeginInit();
             SuspendLayout();
             // 
@@ -47,21 +47,6 @@
             dgvCustomersList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCustomersList.Size = new Size(303, 150);
             dgvCustomersList.TabIndex = 0;
-            // 
-            // customerId
-            // 
-            customerId.HeaderText = "ID";
-            customerId.Name = "customerId";
-            // 
-            // customerName
-            // 
-            customerName.HeaderText = "Name";
-            customerName.Name = "customerName";
-            // 
-            // address
-            // 
-            address.HeaderText = "Address";
-            address.Name = "address";
             // 
             // btnAddCustomer
             // 
@@ -108,6 +93,24 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             // 
+            // customerId
+            // 
+            customerId.DataPropertyName = "customerId";
+            customerId.HeaderText = "ID";
+            customerId.Name = "customerId";
+            // 
+            // customerName
+            // 
+            customerName.DataPropertyName = "customerName";
+            customerName.HeaderText = "Name";
+            customerName.Name = "customerName";
+            // 
+            // address
+            // 
+            address.DataPropertyName = "address";
+            address.HeaderText = "Address";
+            address.Name = "address";
+            // 
             // Customers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -128,13 +131,13 @@
         #endregion
 
         private DataGridView dgvCustomersList;
-        private DataGridViewTextBoxColumn customerId;
-        private DataGridViewTextBoxColumn customerName;
-        private DataGridViewTextBoxColumn address;
         private Button btnAddCustomer;
         private Button btnModifyCustomer;
         private Button btnExit;
         private Button btnDelete;
         private Button btnCancel;
+        private DataGridViewTextBoxColumn customerId;
+        private DataGridViewTextBoxColumn customerName;
+        private DataGridViewTextBoxColumn address;
     }
 }
