@@ -27,7 +27,7 @@
             lblAddress = new Label();
             lblPhoneNumber = new Label();
             btnModSave = new Button();
-            btnModExit = new Button();
+            btnModCancel = new Button();
             tbModName = new TextBox();
             tbModAddress = new TextBox();
             tbModPhoneNumber = new MaskedTextBox();
@@ -69,14 +69,14 @@
             btnModSave.Text = "Save";
             btnModSave.UseVisualStyleBackColor = true;
             // 
-            // btnModExit
+            // btnModCancel
             // 
-            btnModExit.Location = new Point(150, 346);
-            btnModExit.Name = "btnModExit";
-            btnModExit.Size = new Size(75, 23);
-            btnModExit.TabIndex = 4;
-            btnModExit.Text = "Exit";
-            btnModExit.UseVisualStyleBackColor = true;
+            btnModCancel.Location = new Point(150, 346);
+            btnModCancel.Name = "btnModCancel";
+            btnModCancel.Size = new Size(75, 23);
+            btnModCancel.TabIndex = 4;
+            btnModCancel.Text = "Cancel";
+            btnModCancel.UseVisualStyleBackColor = true;
             // 
             // tbModName
             // 
@@ -108,7 +108,7 @@
             Controls.Add(tbModPhoneNumber);
             Controls.Add(tbModAddress);
             Controls.Add(tbModName);
-            Controls.Add(btnModExit);
+            Controls.Add(btnModCancel);
             Controls.Add(btnModSave);
             Controls.Add(lblPhoneNumber);
             Controls.Add(lblAddress);
@@ -125,7 +125,7 @@
         private Label lblAddress;
         private Label lblPhoneNumber;
         private Button btnModSave;
-        private Button btnModExit;
+        private Button btnModCancel;
         private TextBox tbModName;
         private TextBox tbModAddress;
         private MaskedTextBox tbModPhoneNumber;
