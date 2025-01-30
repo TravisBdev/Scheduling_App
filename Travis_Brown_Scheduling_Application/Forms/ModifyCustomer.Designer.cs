@@ -95,6 +95,7 @@
             // tbModPhoneNumber
             // 
             tbModPhoneNumber.Location = new Point(12, 243);
+            tbModPhoneNumber.Mask = "(999) 000-0000";
             tbModPhoneNumber.Name = "tbModPhoneNumber";
             tbModPhoneNumber.Size = new Size(200, 23);
             tbModPhoneNumber.TabIndex = 7;

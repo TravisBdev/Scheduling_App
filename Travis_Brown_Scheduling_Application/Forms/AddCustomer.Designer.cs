@@ -77,6 +77,7 @@
             // tbPhoneNumber
             // 
             tbPhoneNumber.Location = new Point(12, 235);
+            tbPhoneNumber.Mask = "(999) 000-0000";
             tbPhoneNumber.Name = "tbPhoneNumber";
             tbPhoneNumber.Size = new Size(197, 23);
             tbPhoneNumber.TabIndex = 5;
