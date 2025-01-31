@@ -82,7 +82,7 @@
             dgvAppCustomerList.Location = new Point(485, 33);
             dgvAppCustomerList.Name = "dgvAppCustomerList";
             dgvAppCustomerList.RowHeadersVisible = false;
-            dgvAppCustomerList.Size = new Size(303, 150);
+            dgvAppCustomerList.Size = new Size(303, 274);
             dgvAppCustomerList.TabIndex = 1;
             // 
             // customer_Id
