@@ -59,13 +59,13 @@ namespace Travis_Brown_Scheduling_Application
                 return;
             }
 
-            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
+            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
 
             using MySqlConnection conn = new(connectionString);
             try {
                 conn.Open();
 
-                string query = "SELECT COUNT(*) FROM user WHERE userName = @username AND password = @password";
+                string query = "SELECT COUNT(*) FROM `user` WHERE userName = @username AND password = @password";
 
                 using MySqlCommand cmd = new(query, conn);
                 cmd.Parameters.AddWithValue("@username", username);
