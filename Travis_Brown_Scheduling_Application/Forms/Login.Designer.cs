@@ -123,6 +123,8 @@
             Controls.Add(lblLoginTitle);
             Name = "Login";
             Text = "Login";
+            FormClosing += Login_FormClosing;
+            Load += Login_Load;
             ResumeLayout(false);
             PerformLayout();
         }
