@@ -69,6 +69,7 @@
             btnLoginSubmit.TabIndex = 3;
             btnLoginSubmit.Text = "Submit";
             btnLoginSubmit.UseVisualStyleBackColor = true;
+            btnLoginSubmit.Click += btnLoginSubmit_Click;
             // 
             // lblLoginUserName
             // 

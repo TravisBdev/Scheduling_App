@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Travis_Brown_Scheduling_Application.Forms {
-    public partial class Directory : Form {
-        public Directory() {
+    public partial class DirectoryForm : Form {
+        public DirectoryForm() {
             InitializeComponent();
         }
     }

@@ -1,5 +1,5 @@
 ﻿namespace Travis_Brown_Scheduling_Application.Forms {
-    partial class Directory {
+    partial class DirectoryForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
