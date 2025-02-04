@@ -60,6 +60,7 @@
             tbLoginPassword.Name = "tbLoginPassword";
             tbLoginPassword.Size = new Size(181, 23);
             tbLoginPassword.TabIndex = 2;
+            tbLoginPassword.UseSystemPasswordChar = true;
             // 
             // btnLoginSubmit
             // 
