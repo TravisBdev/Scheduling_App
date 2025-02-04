@@ -20,5 +20,12 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             appointmentsForm.ShowDialog();
             this.Close();
         }
+
+        private void btnAddCustomer_Click(object sender, EventArgs e) {
+            this.Hide();
+            AddCustomer addCustomerForm = new();
+            addCustomerForm.ShowDialog();
+            this.Close();
+        }
     }
 }

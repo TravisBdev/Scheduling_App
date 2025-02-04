@@ -75,6 +75,7 @@
             btnAddCustomer.TabIndex = 1;
             btnAddCustomer.Text = "Add Customer";
             btnAddCustomer.UseVisualStyleBackColor = true;
+            btnAddCustomer.Click += btnAddCustomer_Click;
             // 
             // btnModifyCustomer
             // 
