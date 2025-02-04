@@ -14,6 +14,7 @@ namespace Travis_Brown_Scheduling_Application
         string emptyFieldMessage;
         string invalidLoginMessage;
         string failed;
+        string dbError;
 
         private void Translate() {
             string isoCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
@@ -29,10 +30,12 @@ namespace Travis_Brown_Scheduling_Application
                 emptyFieldMessage = "Por favor complete ambos campos.";
                 invalidLoginMessage = "El nombre de usuario y la contraseña no coinciden.";
                 failed = "Error de inicio de sesion.";
-            }else {
+                dbError = "Error de base de datos.";
+            } else {
                 emptyFieldMessage = "Please fill out all fields.";
                 invalidLoginMessage = "The username and password are not valid.";
                 failed = "Login failed.";
+                dbError = "Database Error.";
             }
         }
 
@@ -84,7 +87,7 @@ namespace Travis_Brown_Scheduling_Application
 
 
             } catch (Exception ex) {
-                MessageBox.Show("DB connection error" + ex.Message, failed, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(dbError + ex.Message, failed, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
