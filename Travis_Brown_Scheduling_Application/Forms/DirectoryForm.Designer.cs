@@ -36,6 +36,7 @@
             btnDirectCustomers.TabIndex = 0;
             btnDirectCustomers.Text = "Customers";
             btnDirectCustomers.UseVisualStyleBackColor = true;
+            btnDirectCustomers.Click += btnDirectCustomers_Click;
             // 
             // btnDirectAppointments
             // 
@@ -47,14 +48,14 @@
             btnDirectAppointments.Text = "Appointments";
             btnDirectAppointments.UseVisualStyleBackColor = true;
             // 
-            // Directory
+            // DirectoryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(408, 294);
             Controls.Add(btnDirectAppointments);
             Controls.Add(btnDirectCustomers);
-            Name = "Directory";
+            Name = "DirectoryForm";
             Text = "Directory";
             ResumeLayout(false);
         }
