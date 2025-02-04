@@ -47,6 +47,7 @@
             btnDirectAppointments.TabIndex = 1;
             btnDirectAppointments.Text = "Appointments";
             btnDirectAppointments.UseVisualStyleBackColor = true;
+            btnDirectAppointments.Click += btnDirectAppointments_Click;
             // 
             // DirectoryForm
             // 
