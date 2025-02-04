@@ -24,14 +24,15 @@
         /// </summary>
         private void InitializeComponent() {
             dgvCustomersList = new DataGridView();
+            customer_Id = new DataGridViewTextBoxColumn();
+            customer_Name = new DataGridViewTextBoxColumn();
+            customer_address = new DataGridViewTextBoxColumn();
             btnAddCustomer = new Button();
             btnModifyCustomer = new Button();
             btnExit = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
-            customer_Id = new DataGridViewTextBoxColumn();
-            customer_Name = new DataGridViewTextBoxColumn();
-            customer_address = new DataGridViewTextBoxColumn();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCustomersList).BeginInit();
             SuspendLayout();
             // 
@@ -48,9 +49,27 @@
             dgvCustomersList.Size = new Size(303, 150);
             dgvCustomersList.TabIndex = 0;
             // 
+            // customer_Id
+            // 
+            customer_Id.DataPropertyName = "customerId";
+            customer_Id.HeaderText = "ID";
+            customer_Id.Name = "customer_Id";
+            // 
+            // customer_Name
+            // 
+            customer_Name.DataPropertyName = "customerName";
+            customer_Name.HeaderText = "Name";
+            customer_Name.Name = "customer_Name";
+            // 
+            // customer_address
+            // 
+            customer_address.DataPropertyName = "address";
+            customer_address.HeaderText = "Address";
+            customer_address.Name = "customer_address";
+            // 
             // btnAddCustomer
             // 
-            btnAddCustomer.Location = new Point(179, 240);
+            btnAddCustomer.Location = new Point(179, 199);
             btnAddCustomer.Name = "btnAddCustomer";
             btnAddCustomer.Size = new Size(108, 23);
             btnAddCustomer.TabIndex = 1;
@@ -59,7 +78,7 @@
             // 
             // btnModifyCustomer
             // 
-            btnModifyCustomer.Location = new Point(373, 240);
+            btnModifyCustomer.Location = new Point(373, 199);
             btnModifyCustomer.Name = "btnModifyCustomer";
             btnModifyCustomer.Size = new Size(109, 23);
             btnModifyCustomer.TabIndex = 2;
@@ -93,29 +112,22 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             // 
-            // customer_Id
+            // button1
             // 
-            customer_Id.DataPropertyName = "customerId";
-            customer_Id.HeaderText = "ID";
-            customer_Id.Name = "customer_Id";
-            // 
-            // customer_Name
-            // 
-            customer_Name.DataPropertyName = "customerName";
-            customer_Name.HeaderText = "Name";
-            customer_Name.Name = "customer_Name";
-            // 
-            // customer_address
-            // 
-            customer_address.DataPropertyName = "address";
-            customer_address.HeaderText = "Address";
-            customer_address.Name = "customer_address";
+            button1.Location = new Point(268, 261);
+            button1.Name = "button1";
+            button1.Size = new Size(120, 23);
+            button1.TabIndex = 6;
+            button1.Text = "View Appointments";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Customers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(671, 296);
+            Controls.Add(button1);
             Controls.Add(btnCancel);
             Controls.Add(btnDelete);
             Controls.Add(btnExit);
@@ -139,5 +151,6 @@
         private DataGridViewTextBoxColumn customer_Id;
         private DataGridViewTextBoxColumn customer_Name;
         private DataGridViewTextBoxColumn customer_address;
+        private Button button1;
     }
 }
