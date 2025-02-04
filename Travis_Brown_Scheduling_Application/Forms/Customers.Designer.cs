@@ -32,7 +32,7 @@
             btnExit = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
-            button1 = new Button();
+            btnViewAppointments = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCustomersList).BeginInit();
             SuspendLayout();
             // 
@@ -112,22 +112,22 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnViewAppointments
             // 
-            button1.Location = new Point(268, 261);
-            button1.Name = "button1";
-            button1.Size = new Size(120, 23);
-            button1.TabIndex = 6;
-            button1.Text = "View Appointments";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnViewAppointments.Location = new Point(268, 261);
+            btnViewAppointments.Name = "btnViewAppointments";
+            btnViewAppointments.Size = new Size(120, 23);
+            btnViewAppointments.TabIndex = 6;
+            btnViewAppointments.Text = "View Appointments";
+            btnViewAppointments.UseVisualStyleBackColor = true;
+            btnViewAppointments.Click += btnViewAppointments_Click;
             // 
             // Customers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(671, 296);
-            Controls.Add(button1);
+            Controls.Add(btnViewAppointments);
             Controls.Add(btnCancel);
             Controls.Add(btnDelete);
             Controls.Add(btnExit);
@@ -151,6 +151,6 @@
         private DataGridViewTextBoxColumn customer_Id;
         private DataGridViewTextBoxColumn customer_Name;
         private DataGridViewTextBoxColumn customer_address;
-        private Button button1;
+        private Button btnViewAppointments;
     }
 }

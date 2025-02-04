@@ -14,7 +14,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private void btnViewAppointments_Click(object sender, EventArgs e) {
             this.Hide();
             Appointments appointmentsForm = new();
             appointmentsForm.ShowDialog();

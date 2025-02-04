@@ -44,6 +44,7 @@
             label6 = new Label();
             btnTotalApps = new Button();
             textBox1 = new TextBox();
+            btnViewCustomers = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvAllAppointments).BeginInit();
             SuspendLayout();
             // 
@@ -217,11 +218,22 @@
             textBox1.Size = new Size(39, 23);
             textBox1.TabIndex = 15;
             // 
+            // btnViewCustomers
+            // 
+            btnViewCustomers.Location = new Point(195, 260);
+            btnViewCustomers.Name = "btnViewCustomers";
+            btnViewCustomers.Size = new Size(125, 23);
+            btnViewCustomers.TabIndex = 16;
+            btnViewCustomers.Text = "View Customers";
+            btnViewCustomers.UseVisualStyleBackColor = true;
+            btnViewCustomers.Click += btnViewCustomers_Click;
+            // 
             // Appointments
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(826, 571);
+            Controls.Add(btnViewCustomers);
             Controls.Add(textBox1);
             Controls.Add(btnTotalApps);
             Controls.Add(label6);
@@ -268,5 +280,6 @@
         private Label label6;
         private Button btnTotalApps;
         private TextBox textBox1;
+        private Button btnViewCustomers;
     }
 }

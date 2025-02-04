@@ -13,5 +13,12 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         public Appointments() {
             InitializeComponent();
         }
+
+        private void btnViewCustomers_Click(object sender, EventArgs e) {
+            this.Hide();
+            Customers customersForm = new();
+            customersForm.ShowDialog();
+            this.Close();
+        }
     }
 }
