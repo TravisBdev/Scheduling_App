@@ -24,15 +24,16 @@
         /// </summary>
         private void InitializeComponent() {
             dgvCustomersList = new DataGridView();
-            customer_Id = new DataGridViewTextBoxColumn();
-            customer_Name = new DataGridViewTextBoxColumn();
-            customer_address = new DataGridViewTextBoxColumn();
             btnAddCustomer = new Button();
             btnModifyCustomer = new Button();
             btnExit = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
             btnViewAppointments = new Button();
+            customer_Id = new DataGridViewTextBoxColumn();
+            customer_Name = new DataGridViewTextBoxColumn();
+            customer_address = new DataGridViewTextBoxColumn();
+            phone_number = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvCustomersList).BeginInit();
             SuspendLayout();
             // 
@@ -40,36 +41,18 @@
             // 
             dgvCustomersList.AllowUserToAddRows = false;
             dgvCustomersList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomersList.Columns.AddRange(new DataGridViewColumn[] { customer_Id, customer_Name, customer_address });
-            dgvCustomersList.Location = new Point(179, 12);
+            dgvCustomersList.Columns.AddRange(new DataGridViewColumn[] { customer_Id, customer_Name, customer_address, phone_number });
+            dgvCustomersList.Location = new Point(78, 12);
             dgvCustomersList.MultiSelect = false;
             dgvCustomersList.Name = "dgvCustomersList";
             dgvCustomersList.RowHeadersVisible = false;
             dgvCustomersList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCustomersList.Size = new Size(303, 150);
+            dgvCustomersList.Size = new Size(404, 150);
             dgvCustomersList.TabIndex = 0;
-            // 
-            // customer_Id
-            // 
-            customer_Id.DataPropertyName = "customerId";
-            customer_Id.HeaderText = "ID";
-            customer_Id.Name = "customer_Id";
-            // 
-            // customer_Name
-            // 
-            customer_Name.DataPropertyName = "customerName";
-            customer_Name.HeaderText = "Name";
-            customer_Name.Name = "customer_Name";
-            // 
-            // customer_address
-            // 
-            customer_address.DataPropertyName = "address";
-            customer_address.HeaderText = "Address";
-            customer_address.Name = "customer_address";
             // 
             // btnAddCustomer
             // 
-            btnAddCustomer.Location = new Point(179, 199);
+            btnAddCustomer.Location = new Point(78, 186);
             btnAddCustomer.Name = "btnAddCustomer";
             btnAddCustomer.Size = new Size(108, 23);
             btnAddCustomer.TabIndex = 1;
@@ -79,7 +62,7 @@
             // 
             // btnModifyCustomer
             // 
-            btnModifyCustomer.Location = new Point(373, 199);
+            btnModifyCustomer.Location = new Point(373, 186);
             btnModifyCustomer.Name = "btnModifyCustomer";
             btnModifyCustomer.Size = new Size(109, 23);
             btnModifyCustomer.TabIndex = 2;
@@ -115,13 +98,37 @@
             // 
             // btnViewAppointments
             // 
-            btnViewAppointments.Location = new Point(268, 261);
+            btnViewAppointments.Location = new Point(228, 242);
             btnViewAppointments.Name = "btnViewAppointments";
             btnViewAppointments.Size = new Size(120, 23);
             btnViewAppointments.TabIndex = 6;
             btnViewAppointments.Text = "View Appointments";
             btnViewAppointments.UseVisualStyleBackColor = true;
             btnViewAppointments.Click += btnViewAppointments_Click;
+            // 
+            // customer_Id
+            // 
+            customer_Id.DataPropertyName = "customerId";
+            customer_Id.HeaderText = "ID";
+            customer_Id.Name = "customer_Id";
+            // 
+            // customer_Name
+            // 
+            customer_Name.DataPropertyName = "customerName";
+            customer_Name.HeaderText = "Name";
+            customer_Name.Name = "customer_Name";
+            // 
+            // customer_address
+            // 
+            customer_address.DataPropertyName = "address";
+            customer_address.HeaderText = "Address";
+            customer_address.Name = "customer_address";
+            // 
+            // phone_number
+            // 
+            phone_number.DataPropertyName = "phone";
+            phone_number.HeaderText = "Phone";
+            phone_number.Name = "phone_number";
             // 
             // Customers
             // 
@@ -137,6 +144,7 @@
             Controls.Add(dgvCustomersList);
             Name = "Customers";
             Text = "Customers";
+            Load += Customers_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCustomersList).EndInit();
             ResumeLayout(false);
         }
@@ -149,9 +157,10 @@
         private Button btnExit;
         private Button btnDelete;
         private Button btnCancel;
+        private Button btnViewAppointments;
         private DataGridViewTextBoxColumn customer_Id;
         private DataGridViewTextBoxColumn customer_Name;
         private DataGridViewTextBoxColumn customer_address;
-        private Button btnViewAppointments;
+        private DataGridViewTextBoxColumn phone_number;
     }
 }
