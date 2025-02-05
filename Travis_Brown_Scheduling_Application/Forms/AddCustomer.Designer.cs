@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            components = new System.ComponentModel.Container();
             lblName = new Label();
             lblPhoneNumber = new Label();
             lblAddress = new Label();
@@ -31,6 +32,7 @@
             tbPhoneNumber = new MaskedTextBox();
             btnSave = new Button();
             btnCancel = new Button();
+            ttpPhoneValid = new ToolTip(components);
             SuspendLayout();
             // 
             // lblName
@@ -77,7 +79,7 @@
             // tbPhoneNumber
             // 
             tbPhoneNumber.Location = new Point(12, 235);
-            tbPhoneNumber.Mask = "(999) 000-0000";
+            tbPhoneNumber.Mask = "999- 000-0000";
             tbPhoneNumber.Name = "tbPhoneNumber";
             tbPhoneNumber.Size = new Size(197, 23);
             tbPhoneNumber.TabIndex = 5;
@@ -100,6 +102,7 @@
             btnCancel.TabIndex = 7;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // AddCustomer
             // 
@@ -130,5 +133,6 @@
         private MaskedTextBox tbPhoneNumber;
         private Button btnSave;
         private Button btnCancel;
+        private ToolTip ttpPhoneValid;
     }
 }

@@ -26,6 +26,15 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 return;
             }
 
+            if (!tbPhoneNumber.MaskFull) {
+                tbPhoneNumber.BackColor = Color.Red;
+                ttpPhoneValid.Show("Please enter 10 digits.", tbPhoneNumber, 0, tbPhoneNumber.Height, 1500);
+                return;
+            } else {
+                tbPhoneNumber.BackColor = Color.White;
+                ttpPhoneValid.Hide(tbPhoneNumber);
+            }
+
             string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
 
             using MySqlConnection conn = new(connectionString);
@@ -35,7 +44,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 string addressQuery = @"
                 INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy)
                 VALUES (@address, '', 1, '', @phone, Now(), 'admin', NOW(), 'admin');
-                SELECT LAST_INSERT_ID()"; ;
+                SELECT LAST_INSERT_ID();";
 
                 using MySqlCommand cmd = new(addressQuery, conn);
                 cmd.Parameters.AddWithValue("@address", address);
@@ -60,10 +69,20 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 cusCmd.Parameters.AddWithValue("@addressId", addressId);
 
                 cusCmd.ExecuteNonQuery();
+                this.Close();
 
-            } catch(Exception ex) {
+            } catch(MySqlException sqlx) {
+                MessageBox.Show($"Error: {sqlx.Message}", "Database error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+            //this.Hide();
+            //Customers customersForm = new();
+            //customersForm.ShowDialog();
+            //this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e) {
             this.Hide();
             Customers customersForm = new();
             customersForm.ShowDialog();
