@@ -57,5 +57,23 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         private void Customers_Load(object sender, EventArgs e) {
             PopulateCustomersList();
         }
+
+        private void btnModifyCustomer_Click(object sender, EventArgs e) {
+            if(dgvCustomersList.SelectedRows.Count == 0) {
+                MessageBox.Show("Please select a customer.");
+                return;
+            }
+
+            DataGridViewRow selected = dgvCustomersList.SelectedRows[0];
+            int customerId = Convert.ToInt32(selected.Cells["customer_Id"].Value);
+            string customerName = selected.Cells["customer_Name"].Value.ToString();
+            string address = selected.Cells["customer_address"].Value.ToString();
+            string phone = selected.Cells["phone_number"].Value.ToString();
+
+            ModifyCustomer modCustomerForm = new(customerId, customerName, address, phone);
+            this.Hide();
+            modCustomerForm.ShowDialog();
+            this.Show();
+        }
     }
 }

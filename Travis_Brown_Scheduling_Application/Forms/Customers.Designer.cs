@@ -24,16 +24,16 @@
         /// </summary>
         private void InitializeComponent() {
             dgvCustomersList = new DataGridView();
+            customer_Id = new DataGridViewTextBoxColumn();
+            customer_Name = new DataGridViewTextBoxColumn();
+            customer_address = new DataGridViewTextBoxColumn();
+            phone_number = new DataGridViewTextBoxColumn();
             btnAddCustomer = new Button();
             btnModifyCustomer = new Button();
             btnExit = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
             btnViewAppointments = new Button();
-            customer_Id = new DataGridViewTextBoxColumn();
-            customer_Name = new DataGridViewTextBoxColumn();
-            customer_address = new DataGridViewTextBoxColumn();
-            phone_number = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvCustomersList).BeginInit();
             SuspendLayout();
             // 
@@ -49,6 +49,30 @@
             dgvCustomersList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCustomersList.Size = new Size(404, 150);
             dgvCustomersList.TabIndex = 0;
+            // 
+            // customer_Id
+            // 
+            customer_Id.DataPropertyName = "customerId";
+            customer_Id.HeaderText = "ID";
+            customer_Id.Name = "customer_Id";
+            // 
+            // customer_Name
+            // 
+            customer_Name.DataPropertyName = "customerName";
+            customer_Name.HeaderText = "Name";
+            customer_Name.Name = "customer_Name";
+            // 
+            // customer_address
+            // 
+            customer_address.DataPropertyName = "address";
+            customer_address.HeaderText = "Address";
+            customer_address.Name = "customer_address";
+            // 
+            // phone_number
+            // 
+            phone_number.DataPropertyName = "phone";
+            phone_number.HeaderText = "Phone";
+            phone_number.Name = "phone_number";
             // 
             // btnAddCustomer
             // 
@@ -68,6 +92,7 @@
             btnModifyCustomer.TabIndex = 2;
             btnModifyCustomer.Text = "Modify Customer";
             btnModifyCustomer.UseVisualStyleBackColor = true;
+            btnModifyCustomer.Click += btnModifyCustomer_Click;
             // 
             // btnExit
             // 
@@ -105,30 +130,6 @@
             btnViewAppointments.Text = "View Appointments";
             btnViewAppointments.UseVisualStyleBackColor = true;
             btnViewAppointments.Click += btnViewAppointments_Click;
-            // 
-            // customer_Id
-            // 
-            customer_Id.DataPropertyName = "customerId";
-            customer_Id.HeaderText = "ID";
-            customer_Id.Name = "customer_Id";
-            // 
-            // customer_Name
-            // 
-            customer_Name.DataPropertyName = "customerName";
-            customer_Name.HeaderText = "Name";
-            customer_Name.Name = "customer_Name";
-            // 
-            // customer_address
-            // 
-            customer_address.DataPropertyName = "address";
-            customer_address.HeaderText = "Address";
-            customer_address.Name = "customer_address";
-            // 
-            // phone_number
-            // 
-            phone_number.DataPropertyName = "phone";
-            phone_number.HeaderText = "Phone";
-            phone_number.Name = "phone_number";
             // 
             // Customers
             // 
