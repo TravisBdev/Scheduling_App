@@ -69,6 +69,8 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             string customerName = selected.Cells["customer_Name"].Value.ToString();
             string address = selected.Cells["customer_address"].Value.ToString();
             string phone = selected.Cells["phone_number"].Value.ToString();
+
+            //Placeholder value so the compiler doesn't throw an error.
             int addressId = -1;
 
             string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
