@@ -59,7 +59,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private void btnModifyCustomer_Click(object sender, EventArgs e) {
-            if(dgvCustomersList.SelectedRows.Count == 0) {
+            if (dgvCustomersList.SelectedRows.Count == 0) {
                 MessageBox.Show("Please select a customer.");
                 return;
             }
@@ -88,7 +88,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 }
             } catch (MySqlException sqlx) {
                 MessageBox.Show($"Error: {sqlx.Message}", "Database error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }catch(Exception ex) {
+            } catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
             }
 
@@ -97,6 +97,22 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             modCustomerForm.ShowDialog();
             PopulateCustomersList();
             this.Show();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e) {
+            this.Hide();
+            DirectoryForm directory = new();
+            directory.ShowDialog();
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e) {
+            var res = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo);
+            if(res == DialogResult.Yes) {
+                this.Close();
+            }else {
+                return;
+            }
         }
     }
 }
