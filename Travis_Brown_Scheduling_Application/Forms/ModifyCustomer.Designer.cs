@@ -29,6 +29,8 @@
             tbModName = new TextBox();
             tbModAddress = new TextBox();
             tbModPhone = new MaskedTextBox();
+            btnModSave = new Button();
+            btnModCancel = new Button();
             SuspendLayout();
             // 
             // label1
@@ -80,11 +82,32 @@
             tbModPhone.Size = new Size(195, 23);
             tbModPhone.TabIndex = 5;
             // 
+            // btnModSave
+            // 
+            btnModSave.Location = new Point(12, 346);
+            btnModSave.Name = "btnModSave";
+            btnModSave.Size = new Size(75, 23);
+            btnModSave.TabIndex = 6;
+            btnModSave.Text = "Save";
+            btnModSave.UseVisualStyleBackColor = true;
+            btnModSave.Click += btnModSave_Click;
+            // 
+            // btnModCancel
+            // 
+            btnModCancel.Location = new Point(145, 346);
+            btnModCancel.Name = "btnModCancel";
+            btnModCancel.Size = new Size(75, 23);
+            btnModCancel.TabIndex = 7;
+            btnModCancel.Text = "Cancel";
+            btnModCancel.UseVisualStyleBackColor = true;
+            // 
             // ModifyCustomer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(232, 378);
+            Controls.Add(btnModCancel);
+            Controls.Add(btnModSave);
             Controls.Add(tbModPhone);
             Controls.Add(tbModAddress);
             Controls.Add(tbModName);
@@ -105,5 +128,7 @@
         private TextBox tbModName;
         private TextBox tbModAddress;
         private MaskedTextBox tbModPhone;
+        private Button btnModSave;
+        private Button btnModCancel;
     }
 }

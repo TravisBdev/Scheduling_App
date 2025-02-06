@@ -69,10 +69,31 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             string customerName = selected.Cells["customer_Name"].Value.ToString();
             string address = selected.Cells["customer_address"].Value.ToString();
             string phone = selected.Cells["phone_number"].Value.ToString();
+            int addressId = -1;
 
-            ModifyCustomer modCustomerForm = new(customerId, customerName, address, phone);
+            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+
+            using MySqlConnection conn = new(connectionString);
+            try {
+                conn.Open();
+
+                string query = "SELECT addressId FROM customer WHERE customerId = @customerId";
+                using MySqlCommand cmd = new(query, conn);
+                cmd.Parameters.AddWithValue("@customerId", customerId);
+                object res = cmd.ExecuteScalar();
+                if (res != null) {
+                    addressId = Convert.ToInt32(res);
+                }
+            } catch (MySqlException sqlx) {
+                MessageBox.Show($"Error: {sqlx.Message}", "Database error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }catch(Exception ex) {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            ModifyCustomer modCustomerForm = new(customerId, addressId, customerName, address, phone);
             this.Hide();
             modCustomerForm.ShowDialog();
+            PopulateCustomersList();
             this.Show();
         }
     }
