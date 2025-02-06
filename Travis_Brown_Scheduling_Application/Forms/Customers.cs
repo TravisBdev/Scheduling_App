@@ -60,7 +60,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
 
         private void btnModifyCustomer_Click(object sender, EventArgs e) {
             if (dgvCustomersList.SelectedRows.Count == 0) {
-                MessageBox.Show("Please select a customer.");
+                MessageBox.Show("Please select a customer to modify.");
                 return;
             }
 
@@ -99,6 +99,69 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             this.Show();
         }
 
+
+        /*
+            Delete customer and associated appointments. May need to be tested later as the appointments functionality has yet to be created.
+         */
+        private void btnDelete_Click(object sender, EventArgs e) {
+            if(dgvCustomersList.SelectedRows.Count == 0) {
+                MessageBox.Show("Please select a customer to remove.");
+            }
+
+            DataGridViewRow selected = dgvCustomersList.SelectedRows[0];
+            int customerId = Convert.ToInt32(selected.Cells["customer_id"].Value);
+            //Another placeholder for the compiler
+            int addressId = -1;
+
+            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+
+            using MySqlConnection conn = new(connectionString);
+            try {
+                conn.Open();
+
+                var selection = MessageBox.Show("Deleting this customer will also remove any associated appointments.", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (selection == DialogResult.Yes) {
+                    this.Close();
+                } else {
+                    return;
+                }
+
+                string addressQuery = "SELECT addressId FROM customer WHERE customerId = customerId";
+                using MySqlCommand addressCmd = new(addressQuery, conn);
+                addressCmd.Parameters.AddWithValue("customerId", customerId);
+                object res = addressCmd.ExecuteScalar();
+                if(res != null) {
+                    addressId = Convert.ToInt32(res);
+                }
+
+                //Delete Appointments
+                string deleteAppQuery = "DELETE FROM appointment WHERE customerId = @customerId";
+                using MySqlCommand deleteAppCmd = new(deleteAppQuery, conn);
+                deleteAppCmd.Parameters.AddWithValue("customerId", customerId);
+                deleteAppCmd.ExecuteNonQuery();
+
+                //Delete Customer
+                string deleteCustomerQuery = "DELETE FROM customer WHERE customerId = @customerId";
+                using MySqlCommand deleteCusCmd = new(deleteCustomerQuery, conn);
+                deleteCusCmd.Parameters.AddWithValue("@customerId", customerId);
+                deleteCusCmd.ExecuteNonQuery();
+
+
+                //Delete Address
+                if(addressId != -1) {
+                    string deleteAddressQuery = "DELETE FROM address WHERE addressId = @addressId";
+                    using MySqlCommand deleteAddressCmd = new(deleteAddressQuery, conn);
+                    deleteAddressCmd.Parameters.AddWithValue("@addressId", addressId);
+                    deleteAddressCmd.ExecuteNonQuery();
+                }
+
+                PopulateCustomersList();
+
+
+
+            } catch(Exception ex) { }
+        }
+
         private void btnExit_Click(object sender, EventArgs e) {
             this.Hide();
             DirectoryForm directory = new();
@@ -108,9 +171,9 @@ namespace Travis_Brown_Scheduling_Application.Forms {
 
         private void btnCancel_Click(object sender, EventArgs e) {
             var res = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo);
-            if(res == DialogResult.Yes) {
+            if (res == DialogResult.Yes) {
                 this.Close();
-            }else {
+            } else {
                 return;
             }
         }
