@@ -94,6 +94,7 @@
             mcalAppointmentPicker.Location = new Point(568, 27);
             mcalAppointmentPicker.Name = "mcalAppointmentPicker";
             mcalAppointmentPicker.TabIndex = 1;
+            mcalAppointmentPicker.DateSelected += mcalAppointmentPicker_DateSelected;
             // 
             // label1
             // 

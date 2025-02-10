@@ -54,5 +54,38 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             this.Close();
         }
 
+
+        //Will need to add appointments before testing
+        private void mcalAppointmentPicker_DateSelected(object sender, DateRangeEventArgs e) {
+            string dateSelection = e.Start.ToString("yyyy-MM-dd");
+
+            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+
+            using MySqlConnection conn = new(connectionString);
+
+            try {
+                conn.Open();
+
+                string query = @"
+                    SELECT
+                    a.appointmentId,
+                    c.customerName,
+                    a.type,
+                    a.start,
+                    a.end
+                    FROM appointment a
+                    JOIN customer c ON a.customerId = c.customerId
+                    WHERE DATE(a.start) = @dateSelection;";
+
+                using MySqlCommand cmd = new(query, conn);
+                cmd.Parameters.AddWithValue("@dateSelection", dateSelection);
+                using MySqlDataAdapter adapter = new(cmd);
+                DataTable dt = new();
+                adapter.Fill(dt);
+                dgvAllAppointments.DataSource = dt;
+            }catch(Exception ex) {
+                MessageBox.Show($"{ex.Message}");
+            }
+        }
     }
 }
