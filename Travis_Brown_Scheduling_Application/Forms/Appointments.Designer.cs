@@ -122,6 +122,7 @@
             btnAddAppointment.TabIndex = 4;
             btnAddAppointment.Text = "Add Appointment";
             btnAddAppointment.UseVisualStyleBackColor = true;
+            btnAddAppointment.Click += btnAddAppointment_Click;
             // 
             // btnModAppointment
             // 

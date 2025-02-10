@@ -27,9 +27,6 @@
             rbInPerson = new RadioButton();
             rbOnline = new RadioButton();
             dgvAppCustomerList = new DataGridView();
-            customer_Id = new DataGridViewTextBoxColumn();
-            customer_Name = new DataGridViewTextBoxColumn();
-            customer_address = new DataGridViewTextBoxColumn();
             label1 = new Label();
             dtpAppDaySelect = new DateTimePicker();
             label2 = new Label();
@@ -37,6 +34,10 @@
             label3 = new Label();
             btnCancel = new Button();
             btnSave = new Button();
+            customer_Id = new DataGridViewTextBoxColumn();
+            customer_Name = new DataGridViewTextBoxColumn();
+            customer_address = new DataGridViewTextBoxColumn();
+            phone_number = new DataGridViewTextBoxColumn();
             gbAppointmentType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAppCustomerList).BeginInit();
             SuspendLayout();
@@ -78,30 +79,12 @@
             // 
             dgvAppCustomerList.AllowUserToAddRows = false;
             dgvAppCustomerList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAppCustomerList.Columns.AddRange(new DataGridViewColumn[] { customer_Id, customer_Name, customer_address });
-            dgvAppCustomerList.Location = new Point(485, 33);
+            dgvAppCustomerList.Columns.AddRange(new DataGridViewColumn[] { customer_Id, customer_Name, customer_address, phone_number });
+            dgvAppCustomerList.Location = new Point(385, 33);
             dgvAppCustomerList.Name = "dgvAppCustomerList";
             dgvAppCustomerList.RowHeadersVisible = false;
-            dgvAppCustomerList.Size = new Size(303, 274);
+            dgvAppCustomerList.Size = new Size(403, 274);
             dgvAppCustomerList.TabIndex = 1;
-            // 
-            // customer_Id
-            // 
-            customer_Id.DataPropertyName = "customerId";
-            customer_Id.HeaderText = "ID";
-            customer_Id.Name = "customer_Id";
-            // 
-            // customer_Name
-            // 
-            customer_Name.DataPropertyName = "customerName";
-            customer_Name.HeaderText = "Name";
-            customer_Name.Name = "customer_Name";
-            // 
-            // customer_address
-            // 
-            customer_address.DataPropertyName = "address";
-            customer_address.HeaderText = "Address";
-            customer_address.Name = "customer_address";
             // 
             // label1
             // 
@@ -167,6 +150,30 @@
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             // 
+            // customer_Id
+            // 
+            customer_Id.DataPropertyName = "customerId";
+            customer_Id.HeaderText = "ID";
+            customer_Id.Name = "customer_Id";
+            // 
+            // customer_Name
+            // 
+            customer_Name.DataPropertyName = "customerName";
+            customer_Name.HeaderText = "Name";
+            customer_Name.Name = "customer_Name";
+            // 
+            // customer_address
+            // 
+            customer_address.DataPropertyName = "address";
+            customer_address.HeaderText = "Address";
+            customer_address.Name = "customer_address";
+            // 
+            // phone_number
+            // 
+            phone_number.DataPropertyName = "phone";
+            phone_number.HeaderText = "Phone";
+            phone_number.Name = "phone_number";
+            // 
             // AddAppointment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -183,6 +190,7 @@
             Controls.Add(gbAppointmentType);
             Name = "AddAppointment";
             Text = "Add Appointment";
+            Load += AddAppointment_Load;
             gbAppointmentType.ResumeLayout(false);
             gbAppointmentType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAppCustomerList).EndInit();
@@ -196,9 +204,6 @@
         private RadioButton rbInPerson;
         private RadioButton rbOnline;
         private DataGridView dgvAppCustomerList;
-        private DataGridViewTextBoxColumn customer_Id;
-        private DataGridViewTextBoxColumn customer_Name;
-        private DataGridViewTextBoxColumn customer_address;
         private Label label1;
         private DateTimePicker dtpAppDaySelect;
         private Label label2;
@@ -206,5 +211,9 @@
         private Label label3;
         private Button btnCancel;
         private Button btnSave;
+        private DataGridViewTextBoxColumn customer_Id;
+        private DataGridViewTextBoxColumn customer_Name;
+        private DataGridViewTextBoxColumn customer_address;
+        private DataGridViewTextBoxColumn phone_number;
     }
 }

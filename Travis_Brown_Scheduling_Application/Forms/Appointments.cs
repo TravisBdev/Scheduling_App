@@ -47,13 +47,6 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             PopulateAppointmentsList();
         }
 
-        private void btnViewCustomers_Click(object sender, EventArgs e) {
-            this.Hide();
-            Customers customersForm = new();
-            customersForm.ShowDialog();
-            this.Close();
-        }
-
 
         //Will need to add appointments before testing
         private void mcalAppointmentPicker_DateSelected(object sender, DateRangeEventArgs e) {
@@ -83,9 +76,23 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 DataTable dt = new();
                 adapter.Fill(dt);
                 dgvAllAppointments.DataSource = dt;
-            }catch(Exception ex) {
+            } catch (Exception ex) {
                 MessageBox.Show($"{ex.Message}");
             }
+        }
+
+        private void btnViewCustomers_Click(object sender, EventArgs e) {
+            this.Hide();
+            Customers customersForm = new();
+            customersForm.ShowDialog();
+            this.Close();
+        }
+
+        private void btnAddAppointment_Click(object sender, EventArgs e) {
+            this.Hide();
+            AddAppointment addAppointmentForm = new();
+            addAppointmentForm.ShowDialog();
+            this.Close();
         }
     }
 }
