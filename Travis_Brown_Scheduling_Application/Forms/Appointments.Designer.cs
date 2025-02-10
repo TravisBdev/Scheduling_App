@@ -67,21 +67,25 @@
             // 
             // customer_name
             // 
+            customer_name.DataPropertyName = "customerName";
             customer_name.HeaderText = "Customer";
             customer_name.Name = "customer_name";
             // 
             // appointment_type
             // 
+            appointment_type.DataPropertyName = "type";
             appointment_type.HeaderText = "Type";
             appointment_type.Name = "appointment_type";
             // 
             // appointment_start
             // 
+            appointment_start.DataPropertyName = "start";
             appointment_start.HeaderText = "Start";
             appointment_start.Name = "appointment_start";
             // 
             // appointment_end
             // 
+            appointment_end.DataPropertyName = "end";
             appointment_end.HeaderText = "End";
             appointment_end.Name = "appointment_end";
             // 
@@ -252,6 +256,7 @@
             Controls.Add(dgvAllAppointments);
             Name = "Appointments";
             Text = "Appointments";
+            Load += Appointments_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAllAppointments).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -263,11 +268,6 @@
         private MonthCalendar mcalAppointmentPicker;
         private Label label1;
         private Label label2;
-        private DataGridViewTextBoxColumn appointment_id;
-        private DataGridViewTextBoxColumn customer_name;
-        private DataGridViewTextBoxColumn appointment_type;
-        private DataGridViewTextBoxColumn appointment_start;
-        private DataGridViewTextBoxColumn appointment_end;
         private Button btnAddAppointment;
         private Button btnModAppointment;
         private Button btnAppsExit;
@@ -281,5 +281,10 @@
         private Button btnTotalApps;
         private TextBox textBox1;
         private Button btnViewCustomers;
+        private DataGridViewTextBoxColumn appointment_id;
+        private DataGridViewTextBoxColumn customer_name;
+        private DataGridViewTextBoxColumn appointment_type;
+        private DataGridViewTextBoxColumn appointment_start;
+        private DataGridViewTextBoxColumn appointment_end;
     }
 }
