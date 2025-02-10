@@ -2,6 +2,7 @@ using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using System.Globalization;
 using Travis_Brown_Scheduling_Application.Forms;
+using Travis_Brown_Scheduling_Application.Utils;
 
 namespace Travis_Brown_Scheduling_Application
 {
@@ -68,15 +69,17 @@ namespace Travis_Brown_Scheduling_Application
             try {
                 conn.Open();
 
-                string query = "SELECT COUNT(*) FROM `user` WHERE userName = @username AND password = @password";
+                string query = "SELECT userId FROM user WHERE userName = @userName AND password = @password";
 
                 using MySqlCommand cmd = new(query, conn);
                 cmd.Parameters.AddWithValue("@username", username);
                 cmd.Parameters.AddWithValue("@password", password);
 
-                int isValidUser = Convert.ToInt32(cmd.ExecuteScalar());
+                object res = cmd.ExecuteScalar();
 
-                if(isValidUser > 0) {
+                if(res != null) {
+                    int loggedUserId = Convert.ToInt32(res);
+                    LoggedInUser.UserId = loggedUserId;
                     this.Hide();
                     DirectoryForm directoryForm = new();
                     directoryForm.ShowDialog();

@@ -27,6 +27,10 @@
             rbInPerson = new RadioButton();
             rbOnline = new RadioButton();
             dgvAppCustomerList = new DataGridView();
+            customer_Id = new DataGridViewTextBoxColumn();
+            customer_Name = new DataGridViewTextBoxColumn();
+            customer_address = new DataGridViewTextBoxColumn();
+            phone_number = new DataGridViewTextBoxColumn();
             label1 = new Label();
             dtpAppDaySelect = new DateTimePicker();
             label2 = new Label();
@@ -34,10 +38,6 @@
             label3 = new Label();
             btnCancel = new Button();
             btnSave = new Button();
-            customer_Id = new DataGridViewTextBoxColumn();
-            customer_Name = new DataGridViewTextBoxColumn();
-            customer_address = new DataGridViewTextBoxColumn();
-            phone_number = new DataGridViewTextBoxColumn();
             gbAppointmentType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAppCustomerList).BeginInit();
             SuspendLayout();
@@ -81,10 +81,36 @@
             dgvAppCustomerList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAppCustomerList.Columns.AddRange(new DataGridViewColumn[] { customer_Id, customer_Name, customer_address, phone_number });
             dgvAppCustomerList.Location = new Point(385, 33);
+            dgvAppCustomerList.MultiSelect = false;
             dgvAppCustomerList.Name = "dgvAppCustomerList";
             dgvAppCustomerList.RowHeadersVisible = false;
+            dgvAppCustomerList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAppCustomerList.Size = new Size(403, 274);
             dgvAppCustomerList.TabIndex = 1;
+            // 
+            // customer_Id
+            // 
+            customer_Id.DataPropertyName = "customerId";
+            customer_Id.HeaderText = "ID";
+            customer_Id.Name = "customer_Id";
+            // 
+            // customer_Name
+            // 
+            customer_Name.DataPropertyName = "customerName";
+            customer_Name.HeaderText = "Name";
+            customer_Name.Name = "customer_Name";
+            // 
+            // customer_address
+            // 
+            customer_address.DataPropertyName = "address";
+            customer_address.HeaderText = "Address";
+            customer_address.Name = "customer_address";
+            // 
+            // phone_number
+            // 
+            phone_number.DataPropertyName = "phone";
+            phone_number.HeaderText = "Phone";
+            phone_number.Name = "phone_number";
             // 
             // label1
             // 
@@ -149,30 +175,7 @@
             btnSave.TabIndex = 8;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
-            // 
-            // customer_Id
-            // 
-            customer_Id.DataPropertyName = "customerId";
-            customer_Id.HeaderText = "ID";
-            customer_Id.Name = "customer_Id";
-            // 
-            // customer_Name
-            // 
-            customer_Name.DataPropertyName = "customerName";
-            customer_Name.HeaderText = "Name";
-            customer_Name.Name = "customer_Name";
-            // 
-            // customer_address
-            // 
-            customer_address.DataPropertyName = "address";
-            customer_address.HeaderText = "Address";
-            customer_address.Name = "customer_address";
-            // 
-            // phone_number
-            // 
-            phone_number.DataPropertyName = "phone";
-            phone_number.HeaderText = "Phone";
-            phone_number.Name = "phone_number";
+            btnSave.Click += btnSave_Click;
             // 
             // AddAppointment
             // 
