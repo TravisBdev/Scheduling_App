@@ -93,6 +93,7 @@
             btnModSave.TabIndex = 3;
             btnModSave.Text = "Save";
             btnModSave.UseVisualStyleBackColor = true;
+            btnModSave.Click += btnModSave_Click;
             // 
             // btnModExit
             // 

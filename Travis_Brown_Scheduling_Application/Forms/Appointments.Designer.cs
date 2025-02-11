@@ -54,8 +54,10 @@
             dgvAllAppointments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAllAppointments.Columns.AddRange(new DataGridViewColumn[] { appointment_id, customer_name, appointment_type, appointment_start, appointment_end });
             dgvAllAppointments.Location = new Point(12, 27);
+            dgvAllAppointments.MultiSelect = false;
             dgvAllAppointments.Name = "dgvAllAppointments";
             dgvAllAppointments.RowHeadersVisible = false;
+            dgvAllAppointments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAllAppointments.Size = new Size(503, 162);
             dgvAllAppointments.TabIndex = 0;
             // 
@@ -132,6 +134,7 @@
             btnModAppointment.TabIndex = 5;
             btnModAppointment.Text = "Modify Appointment";
             btnModAppointment.UseVisualStyleBackColor = true;
+            btnModAppointment.Click += btnModAppointment_Click;
             // 
             // btnAppsExit
             // 

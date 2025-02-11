@@ -48,7 +48,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
 
-        //Will need to add appointments before testing
+        //Will need to add appointments before testing (*tested and working*)
         private void mcalAppointmentPicker_DateSelected(object sender, DateRangeEventArgs e) {
             string dateSelection = e.Start.ToString("yyyy-MM-dd");
 
@@ -81,6 +81,46 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             }
         }
 
+        private void btnModAppointment_Click(object sender, EventArgs e) {
+            if (dgvAllAppointments.SelectedRows.Count == 0) {
+                MessageBox.Show("Please select an appointment.", "Whoops", MessageBoxButtons.OK);
+                return;
+            }
+
+            DataGridViewRow selectedAppointment = dgvAllAppointments.SelectedRows[0];
+
+            int appointmentId = Convert.ToInt32(selectedAppointment.Cells["appointment_Id"].Value);
+            string customerName = selectedAppointment.Cells["customer_name"].Value.ToString();
+            //Placeholder value so the compiler doesn't throw an error.
+            int customerId = -1;
+            DateTime start = Convert.ToDateTime(selectedAppointment.Cells["appointment_start"].Value);
+            DateTime end = Convert.ToDateTime(selectedAppointment.Cells["appointment_end"].Value);
+            string appointmentType = selectedAppointment.Cells["appointment_type"].Value.ToString();
+
+            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+
+            using MySqlConnection conn = new(connectionString);
+            try {
+                conn.Open();
+                string query = "SELECT customerId FROM customer WHERE customerName = @customerName";
+                using MySqlCommand cmd = new(query, conn);
+                cmd.Parameters.AddWithValue("@customerName", customerName);
+                object res = cmd.ExecuteScalar();
+                if(res != null) {
+                    customerId = Convert.ToInt32(res);
+                }
+
+            }catch(Exception ex) {
+                MessageBox.Show($"{ex.Message}");
+            }
+
+            ModifyAppointment modAppForm = new(appointmentId, customerId, appointmentType, start, end);
+            this.Hide();
+            modAppForm.ShowDialog();
+            PopulateAppointmentsList();
+            this.Show();
+        }
+
         private void btnViewCustomers_Click(object sender, EventArgs e) {
             this.Hide();
             Customers customersForm = new();
@@ -94,5 +134,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             addAppointmentForm.ShowDialog();
             this.Close();
         }
+
+        
     }
 }
