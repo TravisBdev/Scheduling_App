@@ -153,6 +153,7 @@
             btnDeleteAppointment.TabIndex = 7;
             btnDeleteAppointment.Text = "Delete Appointment";
             btnDeleteAppointment.UseVisualStyleBackColor = true;
+            btnDeleteAppointment.Click += btnDeleteAppointment_Click;
             // 
             // label3
             // 

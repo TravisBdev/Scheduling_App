@@ -106,11 +106,11 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 using MySqlCommand cmd = new(query, conn);
                 cmd.Parameters.AddWithValue("@customerName", customerName);
                 object res = cmd.ExecuteScalar();
-                if(res != null) {
+                if (res != null) {
                     customerId = Convert.ToInt32(res);
                 }
 
-            }catch(Exception ex) {
+            } catch (Exception ex) {
                 MessageBox.Show($"{ex.Message}");
             }
 
@@ -119,6 +119,38 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             modAppForm.ShowDialog();
             PopulateAppointmentsList();
             this.Show();
+        }
+
+        private void btnDeleteAppointment_Click(object sender, EventArgs e) {
+            if (dgvAllAppointments.SelectedRows.Count == 0) {
+                MessageBox.Show("Please select an appointment to delete.", "Whoops", MessageBoxButtons.OK);
+                return;
+            }
+
+            DataGridViewRow selectedAppointment = dgvAllAppointments.SelectedRows[0];
+            int appointmentId = Convert.ToInt32(selectedAppointment.Cells["appointment_id"].Value);
+
+            DialogResult res = MessageBox.Show("Are you sure you want to delete this appointment?", "Please Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if(res == DialogResult.Yes) {
+                string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+
+                using MySqlConnection conn = new(connectionString);
+                try {
+                    conn.Open();
+                    string query = "DELETE FROM appointment WHERE appointmentId = @appointmentId";
+
+                    using MySqlCommand cmd = new(query, conn);
+                    cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
+                    cmd.ExecuteNonQuery();
+                    PopulateAppointmentsList();
+                }catch(MySqlException sqlx) {
+                    MessageBox.Show($"Database error {sqlx.Message}", "Error", MessageBoxButtons.OK);
+                    return;
+                }catch(Exception ex) {
+                    MessageBox.Show($"{ex.Message}");
+                }
+            }
         }
 
         private void btnViewCustomers_Click(object sender, EventArgs e) {
@@ -134,7 +166,5 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             addAppointmentForm.ShowDialog();
             this.Close();
         }
-
-        
     }
 }
