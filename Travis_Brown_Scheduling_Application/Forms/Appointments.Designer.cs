@@ -43,8 +43,10 @@
             btnViewSchedule = new Button();
             label6 = new Label();
             btnTotalApps = new Button();
-            textBox1 = new TextBox();
+            tbTotalApps = new TextBox();
             btnViewCustomers = new Button();
+            tbTotalMonthlyApps = new TextBox();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvAllAppointments).BeginInit();
             SuspendLayout();
             // 
@@ -144,6 +146,7 @@
             btnAppsExit.TabIndex = 6;
             btnAppsExit.Text = "Exit";
             btnAppsExit.UseVisualStyleBackColor = true;
+            btnAppsExit.Click += btnAppsExit_Click;
             // 
             // btnDeleteAppointment
             // 
@@ -175,6 +178,7 @@
             cbAppMonths.Name = "cbAppMonths";
             cbAppMonths.Size = new Size(131, 23);
             cbAppMonths.TabIndex = 9;
+            cbAppMonths.SelectedIndexChanged += cbAppMonths_SelectedIndexChanged;
             // 
             // label4
             // 
@@ -190,9 +194,9 @@
             label5.AutoSize = true;
             label5.Location = new Point(354, 382);
             label5.Name = "label5";
-            label5.Size = new Size(55, 15);
+            label5.Size = new Size(82, 15);
             label5.TabIndex = 11;
-            label5.Text = "Schedule";
+            label5.Text = "Your Schedule";
             // 
             // btnViewSchedule
             // 
@@ -202,6 +206,7 @@
             btnViewSchedule.TabIndex = 12;
             btnViewSchedule.Text = "View";
             btnViewSchedule.UseVisualStyleBackColor = true;
+            btnViewSchedule.Click += btnViewSchedule_Click;
             // 
             // label6
             // 
@@ -220,13 +225,14 @@
             btnTotalApps.TabIndex = 14;
             btnTotalApps.Text = "Generate";
             btnTotalApps.UseVisualStyleBackColor = true;
+            btnTotalApps.Click += btnTotalApps_Click;
             // 
-            // textBox1
+            // tbTotalApps
             // 
-            textBox1.Location = new Point(752, 400);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(39, 23);
-            textBox1.TabIndex = 15;
+            tbTotalApps.Location = new Point(752, 400);
+            tbTotalApps.Name = "tbTotalApps";
+            tbTotalApps.Size = new Size(39, 23);
+            tbTotalApps.TabIndex = 15;
             // 
             // btnViewCustomers
             // 
@@ -238,13 +244,32 @@
             btnViewCustomers.UseVisualStyleBackColor = true;
             btnViewCustomers.Click += btnViewCustomers_Click;
             // 
+            // tbTotalMonthlyApps
+            // 
+            tbTotalMonthlyApps.Location = new Point(149, 400);
+            tbTotalMonthlyApps.Name = "tbTotalMonthlyApps";
+            tbTotalMonthlyApps.Size = new Size(95, 23);
+            tbTotalMonthlyApps.TabIndex = 17;
+            tbTotalMonthlyApps.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(149, 382);
+            label7.Name = "label7";
+            label7.Size = new Size(95, 15);
+            label7.TabIndex = 18;
+            label7.Text = "Total This Month";
+            // 
             // Appointments
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(826, 571);
+            Controls.Add(label7);
+            Controls.Add(tbTotalMonthlyApps);
             Controls.Add(btnViewCustomers);
-            Controls.Add(textBox1);
+            Controls.Add(tbTotalApps);
             Controls.Add(btnTotalApps);
             Controls.Add(label6);
             Controls.Add(btnViewSchedule);
@@ -285,12 +310,14 @@
         private Button btnViewSchedule;
         private Label label6;
         private Button btnTotalApps;
-        private TextBox textBox1;
+        private TextBox tbTotalApps;
         private Button btnViewCustomers;
         private DataGridViewTextBoxColumn appointment_id;
         private DataGridViewTextBoxColumn customer_name;
         private DataGridViewTextBoxColumn appointment_type;
         private DataGridViewTextBoxColumn appointment_start;
         private DataGridViewTextBoxColumn appointment_end;
+        private TextBox tbTotalMonthlyApps;
+        private Label label7;
     }
 }

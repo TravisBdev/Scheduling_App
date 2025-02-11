@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
+using Travis_Brown_Scheduling_Application.Utils;
 
 namespace Travis_Brown_Scheduling_Application.Forms {
     public partial class Appointments : Form {
@@ -132,7 +134,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
 
             DialogResult res = MessageBox.Show("Are you sure you want to delete this appointment?", "Please Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if(res == DialogResult.Yes) {
+            if (res == DialogResult.Yes) {
                 string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
 
                 using MySqlConnection conn = new(connectionString);
@@ -144,15 +146,110 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                     cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
                     cmd.ExecuteNonQuery();
                     PopulateAppointmentsList();
-                }catch(MySqlException sqlx) {
+                } catch (MySqlException sqlx) {
                     MessageBox.Show($"Database error {sqlx.Message}", "Error", MessageBoxButtons.OK);
                     return;
-                }catch(Exception ex) {
+                } catch (Exception ex) {
                     MessageBox.Show($"{ex.Message}");
                 }
             }
         }
 
+        //Reports Section
+        private void cbAppMonths_SelectedIndexChanged(object sender, EventArgs e) {
+            string selectedMonth = cbAppMonths.SelectedItem.ToString();
+            int month = DateTime.ParseExact(selectedMonth, "MMMM", CultureInfo.InvariantCulture).Month;
+
+            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+
+            using MySqlConnection conn = new(connectionString);
+            try {
+                conn.Open();
+                string query = "SELECT start FROM appointment";
+
+                using MySqlCommand cmd = new(query, conn);
+                using MySqlDataAdapter adapter = new(cmd);
+                DataTable dt = new();
+                adapter.Fill(dt);
+
+                //Lambda
+                int totalMonthly = dt.AsEnumerable().Count(row => Convert.ToDateTime(row["start"]).Month == month);
+
+                tbTotalMonthlyApps.Text = totalMonthly.ToString();
+
+            } catch (MySqlException sqlx) {
+                MessageBox.Show($"Database error {sqlx.Message}", "Error", MessageBoxButtons.OK);
+                return;
+            } catch (Exception ex) {
+                MessageBox.Show($"{ex.Message}");
+            }
+        }
+
+        private void btnViewSchedule_Click(object sender, EventArgs e) {
+            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+
+            using MySqlConnection conn = new(connectionString);
+            try {
+                conn.Open();
+                string query = @"
+                    SELECT a.type, c.customerName, a.start, a.end
+                    FROM appointment a
+                    JOIN customer c ON a.customerId = c.customerId
+                    WHERE a.userId = @userId";
+
+                using MySqlCommand cmd = new(query, conn);
+                cmd.Parameters.AddWithValue("@userId", LoggedInUser.UserId);
+                using MySqlDataAdapter adapter = new(cmd);
+                DataTable dt = new();
+                adapter.Fill(dt);
+
+                //Lambda (going to use implicit conversion for this one)
+                var sorted = dt.AsEnumerable().OrderBy(row => row["start"]).CopyToDataTable();
+
+                Form userSchedule = new();
+                DataGridView dgvUserSchedule = new() { Dock = DockStyle.Fill, DataSource = sorted };
+                userSchedule.Controls.Add(dgvUserSchedule);
+                userSchedule.Size = new Size(500, 500);
+                userSchedule.Text = "User Schedule";
+                //this.Hide();
+                userSchedule.ShowDialog();
+
+
+
+            } catch (MySqlException sqlx) {
+                MessageBox.Show($"Database error {sqlx.Message}", "Error", MessageBoxButtons.OK);
+                return;
+            } catch (Exception ex) {
+                MessageBox.Show($"{ex.Message}");
+            }
+        }
+
+        private void btnTotalApps_Click(object sender, EventArgs e) {
+            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+
+            using MySqlConnection conn = new(connectionString);
+            try {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM appointment";
+                using MySqlCommand cmd = new(query, conn);
+
+                //Lambda
+                Func<int> totalApps = () => Convert.ToInt32(cmd.ExecuteScalar());
+
+                tbTotalApps.Text = totalApps().ToString();
+
+            } catch (MySqlException sqlx) {
+                MessageBox.Show($"Database error {sqlx.Message}", "Error", MessageBoxButtons.OK);
+                return;
+            } catch (Exception ex) {
+                MessageBox.Show($"{ex.Message}");
+            }
+        }
+
+
+
+
+        //Opening and closing click events
         private void btnViewCustomers_Click(object sender, EventArgs e) {
             this.Hide();
             Customers customersForm = new();
@@ -164,6 +261,13 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             this.Hide();
             AddAppointment addAppointmentForm = new();
             addAppointmentForm.ShowDialog();
+            this.Close();
+        }
+
+        private void btnAppsExit_Click(object sender, EventArgs e) {
+            this.Hide();
+            DirectoryForm directoryForm = new();
+            directoryForm.ShowDialog();
             this.Close();
         }
     }
