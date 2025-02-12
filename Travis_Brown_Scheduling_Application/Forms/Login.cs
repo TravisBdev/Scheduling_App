@@ -58,8 +58,7 @@ namespace Travis_Brown_Scheduling_Application
             string username = tbLoginUserName.Text.Trim();
             string password = tbLoginPassword.Text.Trim();
             string timeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Login_History.txt");
-            MessageBox.Show($"Logging to: {path}", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Login_History.txt");
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
                 MessageBox.Show(emptyFieldMessage, failed, MessageBoxButtons.OK, MessageBoxIcon.Warning);
