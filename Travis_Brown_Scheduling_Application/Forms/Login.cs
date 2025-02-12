@@ -57,9 +57,13 @@ namespace Travis_Brown_Scheduling_Application
         private void btnLoginSubmit_Click(object sender, EventArgs e) {
             string username = tbLoginUserName.Text.Trim();
             string password = tbLoginPassword.Text.Trim();
+            string timeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Login_History.txt");
+            MessageBox.Show($"Logging to: {path}", "Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-           if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
                 MessageBox.Show(emptyFieldMessage, failed, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                File.AppendAllText(path, $"{timeStamp} | Username: {username} | Login Failed (Fields Empty)\n");
                 return;
             }
 
@@ -78,6 +82,7 @@ namespace Travis_Brown_Scheduling_Application
                 object res = cmd.ExecuteScalar();
 
                 if(res != null) {
+                    File.AppendAllText(path, $"{timeStamp} | Username: {username} | Login Successful\n");
                     int loggedUserId = Convert.ToInt32(res);
                     LoggedInUser.UserId = loggedUserId;
                     this.Hide();
@@ -86,6 +91,7 @@ namespace Travis_Brown_Scheduling_Application
                     this.Close();
                 }else {
                     MessageBox.Show(invalidLoginMessage, failed, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    File.AppendAllText(path, $"{timeStamp} | Username: {username} | Login Failed (Invalid Credentials)\n");
                 }
 
 
