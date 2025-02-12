@@ -47,17 +47,22 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-            if(dgvAppCustomerList.SelectedRows.Count == 0) {
-                MessageBox.Show("Please select a customer.","Whoops", MessageBoxButtons.OK);
+            if (dgvAppCustomerList.SelectedRows.Count == 0) {
+                MessageBox.Show("Please select a customer.", "Whoops", MessageBoxButtons.OK);
                 return;
             }
 
-            if(!rbInPerson.Checked && !rbOnline.Checked) {
+            if (dtpAppDaySelect.Value.DayOfWeek == DayOfWeek.Saturday || dtpAppDaySelect.Value.DayOfWeek == DayOfWeek.Sunday) {
+                MessageBox.Show("Appointment times are only available Monday through Friday.", "Invalid Date", MessageBoxButtons.OK);
+                return;
+            }
+
+            if (!rbInPerson.Checked && !rbOnline.Checked) {
                 MessageBox.Show("Please select an appointment type.", "Whoops", MessageBoxButtons.OK);
                 return;
             }
 
-            if(cbAppTimeSelect.SelectedIndex == -1) {
+            if (cbAppTimeSelect.SelectedIndex == -1) {
                 MessageBox.Show("Please select an appointment time.", "Whoops", MessageBoxButtons.OK);
                 return;
             }
@@ -70,7 +75,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             DateTime startTime = DateTime.MinValue;
             DateTime endTime = DateTime.MinValue;
 
-            switch(timeSelected) {
+            switch (timeSelected) {
                 case "9:00 AM - 10:00 AM":
                     startTime = DateTime.ParseExact("09:00 AM", "hh:mm tt", CultureInfo.InvariantCulture);
                     endTime = DateTime.ParseExact("10:00 AM", "hh:mm tt", CultureInfo.InvariantCulture);
@@ -99,7 +104,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             startTime = dateSelected.Add(startTime.TimeOfDay);
             endTime = dateSelected.Add(endTime.TimeOfDay);
 
-            if(IsOverlap(startTime, endTime)) {
+            if (IsOverlap(startTime, endTime)) {
                 return;
             }
 
@@ -137,7 +142,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 appointmentsForm.ShowDialog();
                 this.Close();
 
-            }catch(Exception ex) {
+            } catch (Exception ex) {
                 MessageBox.Show($"{ex.Message}");
             }
         }
@@ -161,14 +166,21 @@ namespace Travis_Brown_Scheduling_Application.Forms {
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
 
-                if(count > 0) {
+                if (count > 0) {
                     MessageBox.Show("Your selection overlaps with an existing appointment.", "Please choose another time.", MessageBoxButtons.OK);
                     return true;
                 }
 
-            }catch(Exception ex) { }
+            } catch (Exception ex) { }
 
             return false;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e) {
+            this.Hide();
+            Appointments appForm = new();
+            appForm.ShowDialog();
+            this.Close();
         }
     }
 }

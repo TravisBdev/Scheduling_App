@@ -27,7 +27,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             string modAddress = tbModAddress.Text.Trim();
             string modPhone = tbModPhone.Text.Trim();
 
-            if(string.IsNullOrEmpty(modName) || string.IsNullOrEmpty(modAddress) || string.IsNullOrEmpty(modPhone)) {
+            if (string.IsNullOrEmpty(modName) || string.IsNullOrEmpty(modAddress) || string.IsNullOrEmpty(modPhone)) {
                 MessageBox.Show("All fields required.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -61,11 +61,18 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 addressCmd.ExecuteNonQuery();
 
                 this.Close();
-            } catch(MySqlException sqlx) {
+            } catch (MySqlException sqlx) {
                 MessageBox.Show($"Error: {sqlx.Message}", "Database error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }catch(Exception ex) {
+            } catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+        }
+
+        private void btnModCancel_Click(object sender, EventArgs e) {
+            this.Hide();
+            Customers customersForm = new();
+            customersForm.ShowDialog();
+            this.Close();
         }
     }
 }

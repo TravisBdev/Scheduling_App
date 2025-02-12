@@ -36,6 +36,11 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             DateTime start = DateTime.Parse(selectedDate.ToShortDateString() + " " + range[0].Trim());
             DateTime end = DateTime.Parse(selectedDate.ToShortDateString() + " " + range[1].Trim());
 
+            if (dtpModAppDatePicker.Value.DayOfWeek == DayOfWeek.Saturday || dtpModAppDatePicker.Value.DayOfWeek == DayOfWeek.Sunday) {
+                MessageBox.Show("Appointment times are only available Monday through Friday.", "Invalid Date", MessageBoxButtons.OK);
+                return;
+            }
+
             string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
 
             using MySqlConnection conn = new(connectionString);
@@ -59,9 +64,16 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 appForm.ShowDialog();
                 this.Close();
 
-            }catch(Exception ex) {
+            } catch (Exception ex) {
                 MessageBox.Show($"{ex.Message}");
             }
+        }
+
+        private void btnModExit_Click(object sender, EventArgs e) {
+            this.Hide();
+            Appointments appForm = new();
+            appForm.ShowDialog();
+            this.Close();
         }
     }
 }

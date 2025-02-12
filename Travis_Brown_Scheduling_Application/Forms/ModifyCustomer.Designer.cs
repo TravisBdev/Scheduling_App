@@ -100,6 +100,7 @@
             btnModCancel.TabIndex = 7;
             btnModCancel.Text = "Cancel";
             btnModCancel.UseVisualStyleBackColor = true;
+            btnModCancel.Click += btnModCancel_Click;
             // 
             // ModifyCustomer
             // 

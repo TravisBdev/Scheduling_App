@@ -103,6 +103,7 @@
             btnModExit.TabIndex = 4;
             btnModExit.Text = "Exit";
             btnModExit.UseVisualStyleBackColor = true;
+            btnModExit.Click += btnModExit_Click;
             // 
             // label1
             // 
