@@ -69,6 +69,9 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 cusCmd.Parameters.AddWithValue("@addressId", addressId);
 
                 cusCmd.ExecuteNonQuery();
+                this.Hide();
+                Customers customersForm = new();
+                customersForm.ShowDialog();
                 this.Close();
 
             } catch(MySqlException sqlx) {
@@ -76,10 +79,6 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             } catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
             }
-            //this.Hide();
-            //Customers customersForm = new();
-            //customersForm.ShowDialog();
-            //this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e) {
