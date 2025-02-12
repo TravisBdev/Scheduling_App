@@ -18,7 +18,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private void PopulateCustomersList() {
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
             using MySqlConnection conn = new(connectionString);
             try {
                 conn.Open();
@@ -108,7 +108,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 return;
             }
 
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
             try {
@@ -148,7 +148,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private bool IsOverlap(DateTime startTime, DateTime endTime) {
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
 

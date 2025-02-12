@@ -35,7 +35,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 ttpPhoneValid.Hide(tbPhoneNumber);
             }
 
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
             try {

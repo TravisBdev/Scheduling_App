@@ -16,7 +16,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private void PopulateCustomersList() {
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
             using MySqlConnection conn = new(connectionString);
             try {
                 conn.Open();
@@ -73,7 +73,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             //Placeholder value so the compiler doesn't throw an error.
             int addressId = -1;
 
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
             try {
@@ -113,7 +113,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             //Another placeholder for the compiler
             int addressId = -1;
 
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
             try {

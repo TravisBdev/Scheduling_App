@@ -18,7 +18,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private void PopulateAppointmentsList() {
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
 
@@ -54,7 +54,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         private void mcalAppointmentPicker_DateSelected(object sender, DateRangeEventArgs e) {
             string dateSelection = e.Start.ToString("yyyy-MM-dd");
 
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
 
@@ -99,7 +99,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             DateTime end = Convert.ToDateTime(selectedAppointment.Cells["appointment_end"].Value);
             string appointmentType = selectedAppointment.Cells["appointment_type"].Value.ToString();
 
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
             try {
@@ -135,7 +135,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             DialogResult res = MessageBox.Show("Are you sure you want to delete this appointment?", "Please Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (res == DialogResult.Yes) {
-                string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+                string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
                 using MySqlConnection conn = new(connectionString);
                 try {
@@ -160,7 +160,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             string selectedMonth = cbAppMonths.SelectedItem.ToString();
             int month = DateTime.ParseExact(selectedMonth, "MMMM", CultureInfo.InvariantCulture).Month;
 
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
             try {
@@ -186,7 +186,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private void btnViewSchedule_Click(object sender, EventArgs e) {
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
             try {
@@ -225,7 +225,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private void btnTotalApps_Click(object sender, EventArgs e) {
-            string connectionString = "server=localhost;user=test;database=client_schedule;port=3306;password=test";
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
             try {

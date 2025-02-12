@@ -2,3 +2,8 @@
 2025-02-12 13:39:06 | Username: test | Login Failed (Invalid Credentials)
 2025-02-12 13:39:53 | Username: test | Login Successful
 2025-02-12 13:59:18 | Username: test | Login Successful
+2025-02-12 14:25:48 | Username: sqlUser | Login Failed (Invalid Credentials)
+2025-02-12 14:26:09 | Username: sqlUser | Login Failed (Invalid Credentials)
+2025-02-12 14:27:38 | Username: sqlUser | Login Failed (Invalid Credentials)
+2025-02-12 14:34:19 | Username: sqlUser | Login Successful
+2025-02-12 14:39:45 | Username: sqlUser | Login Successful
