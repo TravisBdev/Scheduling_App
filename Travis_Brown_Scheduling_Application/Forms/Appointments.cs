@@ -169,17 +169,26 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             using MySqlConnection conn = new(connectionString);
             try {
                 conn.Open();
-                string query = "SELECT start FROM appointment";
+                string query = @"
+                    SELECT type, COUNT(*) as count
+                    FROM appointment
+                    WHERE MONTH(start) = @month
+                    GROUP BY type";
 
                 using MySqlCommand cmd = new(query, conn);
                 using MySqlDataAdapter adapter = new(cmd);
+                cmd.Parameters.AddWithValue("@month", month);
                 DataTable dt = new();
                 adapter.Fill(dt);
 
-                //Lambda
-                int totalMonthly = dt.AsEnumerable().Count(row => Convert.ToDateTime(row["start"]).Month == month);
+                //Lambda (implicit)
+                var report = dt.AsEnumerable().Select(row => new {
+                    Type = row["type"].ToString(),
+                    Count = Convert.ToInt32(row["count"])
+                }).ToList();
 
-                tbTotalMonthlyApps.Text = totalMonthly.ToString();
+                dgvMonthlyApps.DataSource = report;
+                
 
             } catch (MySqlException sqlx) {
                 MessageBox.Show($"Database error {sqlx.Message}", "Error", MessageBoxButtons.OK);

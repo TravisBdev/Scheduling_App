@@ -45,9 +45,12 @@
             btnTotalApps = new Button();
             tbTotalApps = new TextBox();
             btnViewCustomers = new Button();
-            tbTotalMonthlyApps = new TextBox();
             label7 = new Label();
+            dgvMonthlyApps = new DataGridView();
+            type = new DataGridViewTextBoxColumn();
+            count = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvAllAppointments).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMonthlyApps).BeginInit();
             SuspendLayout();
             // 
             // dgvAllAppointments
@@ -192,7 +195,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(354, 382);
+            label5.Location = new Point(481, 382);
             label5.Name = "label5";
             label5.Size = new Size(82, 15);
             label5.TabIndex = 11;
@@ -200,7 +203,7 @@
             // 
             // btnViewSchedule
             // 
-            btnViewSchedule.Location = new Point(354, 400);
+            btnViewSchedule.Location = new Point(488, 400);
             btnViewSchedule.Name = "btnViewSchedule";
             btnViewSchedule.Size = new Size(75, 23);
             btnViewSchedule.TabIndex = 12;
@@ -244,30 +247,47 @@
             btnViewCustomers.UseVisualStyleBackColor = true;
             btnViewCustomers.Click += btnViewCustomers_Click;
             // 
-            // tbTotalMonthlyApps
-            // 
-            tbTotalMonthlyApps.Location = new Point(149, 400);
-            tbTotalMonthlyApps.Name = "tbTotalMonthlyApps";
-            tbTotalMonthlyApps.Size = new Size(95, 23);
-            tbTotalMonthlyApps.TabIndex = 17;
-            tbTotalMonthlyApps.TextAlign = HorizontalAlignment.Center;
-            // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(149, 382);
+            label7.Location = new Point(264, 382);
             label7.Name = "label7";
-            label7.Size = new Size(95, 15);
+            label7.Size = new Size(91, 15);
             label7.TabIndex = 18;
-            label7.Text = "Total This Month";
+            label7.Text = "Total For Month";
+            // 
+            // dgvMonthlyApps
+            // 
+            dgvMonthlyApps.AllowUserToAddRows = false;
+            dgvMonthlyApps.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMonthlyApps.Columns.AddRange(new DataGridViewColumn[] { type, count });
+            dgvMonthlyApps.Location = new Point(195, 400);
+            dgvMonthlyApps.MultiSelect = false;
+            dgvMonthlyApps.Name = "dgvMonthlyApps";
+            dgvMonthlyApps.RowHeadersVisible = false;
+            dgvMonthlyApps.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMonthlyApps.Size = new Size(204, 122);
+            dgvMonthlyApps.TabIndex = 19;
+            // 
+            // type
+            // 
+            type.DataPropertyName = "type";
+            type.HeaderText = "Type";
+            type.Name = "type";
+            // 
+            // count
+            // 
+            count.DataPropertyName = "count";
+            count.HeaderText = "Number";
+            count.Name = "count";
             // 
             // Appointments
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(826, 571);
+            Controls.Add(dgvMonthlyApps);
             Controls.Add(label7);
-            Controls.Add(tbTotalMonthlyApps);
             Controls.Add(btnViewCustomers);
             Controls.Add(tbTotalApps);
             Controls.Add(btnTotalApps);
@@ -289,6 +309,7 @@
             Text = "Appointments";
             Load += Appointments_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAllAppointments).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMonthlyApps).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -317,7 +338,9 @@
         private DataGridViewTextBoxColumn appointment_type;
         private DataGridViewTextBoxColumn appointment_start;
         private DataGridViewTextBoxColumn appointment_end;
-        private TextBox tbTotalMonthlyApps;
         private Label label7;
+        private DataGridView dgvMonthlyApps;
+        private DataGridViewTextBoxColumn type;
+        private DataGridViewTextBoxColumn count;
     }
 }
