@@ -106,6 +106,15 @@ namespace Travis_Brown_Scheduling_Application.Forms {
 
             DateTime startTime = TimeZoneInfo.ConvertTimeToUtc(dateSelected.Add(localStart.TimeOfDay), local);
             DateTime endTime = TimeZoneInfo.ConvertTimeToUtc(dateSelected.Add(localEnd.TimeOfDay), local);
+            TimeZoneInfo eastern = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternStart = TimeZoneInfo.ConvertTime(startTime, eastern);
+            DateTime easternEnd = TimeZoneInfo.ConvertTime(endTime, eastern);
+
+            if(easternStart.TimeOfDay < new TimeSpan(9, 0, 0) || easternEnd.TimeOfDay > new TimeSpan(17, 0, 0)) {
+                MessageBox.Show("Appointments must be made between 9:00 AM and 5:00 PM EST.", "Whoops", MessageBoxButtons.OK);
+                return;
+            }
+
 
             if (IsOverlap(startTime, endTime)) {
                 return;
