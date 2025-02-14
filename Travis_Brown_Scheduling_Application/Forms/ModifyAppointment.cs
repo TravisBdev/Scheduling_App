@@ -42,6 +42,15 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             DateTime start = TimeZoneInfo.ConvertTimeToUtc(localStart, local);
             DateTime end = TimeZoneInfo.ConvertTimeToUtc(localEnd, local);
 
+            TimeZoneInfo eastern = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternStart = TimeZoneInfo.ConvertTime(start, eastern);
+            DateTime easternEnd = TimeZoneInfo.ConvertTime(end, eastern);
+
+            if (easternStart.TimeOfDay < new TimeSpan(9, 0, 0) || easternEnd.TimeOfDay > new TimeSpan(17, 0, 0)) {
+                MessageBox.Show("Appointments must be made between 9:00 AM and 5:00 PM EST.", "Whoops", MessageBoxButtons.OK);
+                return;
+            }
+
             if (dtpModAppDatePicker.Value.DayOfWeek == DayOfWeek.Saturday || dtpModAppDatePicker.Value.DayOfWeek == DayOfWeek.Sunday) {
                 MessageBox.Show("Appointment times are only available Monday through Friday.", "Invalid Date", MessageBoxButtons.OK);
                 return;
