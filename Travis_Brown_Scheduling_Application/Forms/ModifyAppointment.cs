@@ -18,6 +18,8 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             InitializeComponent();
             appointmentId = appId;
             customerId = cusId;
+            DateTime localStart = TimeZoneInfo.ConvertTimeFromUtc(start, TimeZoneInfo.Local);
+            DateTime localEnd = TimeZoneInfo.ConvertTimeFromUtc(end, TimeZoneInfo.Local);
 
             if (appointmentType == "Online") {
                 rbModOnline.Checked = true;
@@ -25,16 +27,20 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 rbModInPerson.Checked = true;
             }
 
-            dtpModAppDatePicker.Value = start.Date;
-            cbModAppTimeSelect.SelectedItem = $"{start:t} - {end:t}";
+            dtpModAppDatePicker.Value = localStart.Date;
+            cbModAppTimeSelect.SelectedItem = $"{localStart:t} - {localEnd:t}";
         }
 
         private void btnModSave_Click(object sender, EventArgs e) {
+            TimeZoneInfo local = TimeZoneInfo.Local;
+            TimeZoneInfo utc = TimeZoneInfo.Utc;
             string appointmentType = rbModOnline.Checked ? "Online" : "In-Person";
             DateTime selectedDate = dtpModAppDatePicker.Value.Date;
             string[] range = cbModAppTimeSelect.SelectedItem.ToString().Split("-");
-            DateTime start = DateTime.Parse(selectedDate.ToShortDateString() + " " + range[0].Trim());
-            DateTime end = DateTime.Parse(selectedDate.ToShortDateString() + " " + range[1].Trim());
+            DateTime localStart = DateTime.Parse(selectedDate.ToShortDateString() + " " + range[0].Trim());
+            DateTime localEnd = DateTime.Parse(selectedDate.ToShortDateString() + " " + range[1].Trim());
+            DateTime start = TimeZoneInfo.ConvertTimeToUtc(localStart, local);
+            DateTime end = TimeZoneInfo.ConvertTimeToUtc(localEnd, local);
 
             if (dtpModAppDatePicker.Value.DayOfWeek == DayOfWeek.Saturday || dtpModAppDatePicker.Value.DayOfWeek == DayOfWeek.Sunday) {
                 MessageBox.Show("Appointment times are only available Monday through Friday.", "Invalid Date", MessageBoxButtons.OK);
