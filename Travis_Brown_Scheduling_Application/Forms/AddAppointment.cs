@@ -72,37 +72,40 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             DateTime dateSelected = dtpAppDaySelect.Value.Date;
             string timeSelected = cbAppTimeSelect.SelectedItem.ToString();
 
-            DateTime startTime = DateTime.MinValue;
-            DateTime endTime = DateTime.MinValue;
+            TimeZoneInfo local = TimeZoneInfo.Local;
+            TimeZoneInfo utc = TimeZoneInfo.Utc;
+
+            DateTime localStart;
+            DateTime localEnd;
 
             switch (timeSelected) {
                 case "9:00 AM - 10:00 AM":
-                    startTime = DateTime.ParseExact("09:00 AM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    endTime = DateTime.ParseExact("10:00 AM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localStart = DateTime.ParseExact("09:00 AM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localEnd = DateTime.ParseExact("10:00 AM", "hh:mm tt", CultureInfo.InvariantCulture);
                     break;
                 case "10:30 AM - 11:30 AM":
-                    startTime = DateTime.ParseExact("10:30 AM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    endTime = DateTime.ParseExact("11:30 AM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localStart = DateTime.ParseExact("10:30 AM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localEnd = DateTime.ParseExact("11:30 AM", "hh:mm tt", CultureInfo.InvariantCulture);
                     break;
                 case "1:00 PM - 2:00 PM":
-                    startTime = DateTime.ParseExact("01:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    endTime = DateTime.ParseExact("02:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localStart = DateTime.ParseExact("01:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localEnd = DateTime.ParseExact("02:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
                     break;
                 case "2:30 PM - 3:30 PM":
-                    startTime = DateTime.ParseExact("02:30 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    endTime = DateTime.ParseExact("03:30 PM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localStart = DateTime.ParseExact("02:30 PM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localEnd = DateTime.ParseExact("03:30 PM", "hh:mm tt", CultureInfo.InvariantCulture);
                     break;
                 case "4:00 PM - 5:00 PM":
-                    startTime = DateTime.ParseExact("04:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    endTime = DateTime.ParseExact("05:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localStart = DateTime.ParseExact("04:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
+                    localEnd = DateTime.ParseExact("05:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
                     break;
                 default:
                     MessageBox.Show("Time slot is not valid", "Error", MessageBoxButtons.OK);
                     return;
             }
 
-            startTime = dateSelected.Add(startTime.TimeOfDay);
-            endTime = dateSelected.Add(endTime.TimeOfDay);
+            DateTime startTime = TimeZoneInfo.ConvertTimeToUtc(dateSelected.Add(localStart.TimeOfDay), local);
+            DateTime endTime = TimeZoneInfo.ConvertTimeToUtc(dateSelected.Add(localEnd.TimeOfDay), local);
 
             if (IsOverlap(startTime, endTime)) {
                 return;

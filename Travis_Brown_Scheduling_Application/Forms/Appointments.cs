@@ -38,6 +38,10 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 using MySqlDataAdapter adapter = new(cmd);
                 DataTable dt = new();
                 adapter.Fill(dt);
+                foreach(DataRow row in dt.Rows) {
+                    row["start"] = TimeZoneInfo.ConvertTimeFromUtc(Convert.ToDateTime(row["start"]), TimeZoneInfo.Local);
+                    row["end"] = TimeZoneInfo.ConvertTimeFromUtc(Convert.ToDateTime(row["end"]), TimeZoneInfo.Local);
+                }
                 dgvAllAppointments.DataSource = dt;
 
             } catch (Exception ex) {
