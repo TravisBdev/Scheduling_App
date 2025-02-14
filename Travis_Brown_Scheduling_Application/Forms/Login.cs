@@ -85,6 +85,7 @@ namespace Travis_Brown_Scheduling_Application
                     File.AppendAllText(path, $"{timeStamp} | Username: {username} | Login Successful\n");
                     int loggedUserId = Convert.ToInt32(res);
                     LoggedInUser.UserId = loggedUserId;
+                    CheckAppointments(conn);
                     this.Hide();
                     DirectoryForm directoryForm = new();
                     directoryForm.ShowDialog();
@@ -97,6 +98,28 @@ namespace Travis_Brown_Scheduling_Application
 
             } catch (Exception ex) {
                 MessageBox.Show(dbError + ex.Message, failed, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CheckAppointments(MySqlConnection conn) {
+            try {
+                string query = @"
+                    SELECT customerName, start
+                    FROM appointment a
+                    JOIN customer c ON a.customerId = c.customerId
+                    WHERE TIMESTAMPDIFF(MINUTE, NOW(), a.start) <= 15 AND TIMESTAMPDIFF(MINUTE, NOW(), a.start) > 0";
+
+                using MySqlCommand cmd = new(query, conn);
+                using MySqlDataReader reader = cmd.ExecuteReader();
+                if(reader.Read()) {
+                    string customerName = reader["customerName"].ToString();
+                    DateTime appTime = Convert.ToDateTime(reader["start"]);
+                    MessageBox.Show($"You have an appointment in 15 minutes with {customerName}", "Get Ready!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
+            }catch(Exception ex) {
+                MessageBox.Show($"{ex.Message}");
             }
         }
     }
