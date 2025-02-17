@@ -54,7 +54,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 return;
             }
 
-            if(IsOverlap(customerId, utcStart, utcEnd)) {
+            if(IsOverlap(customerId, appointmentId, utcStart, utcEnd)) {
                 return;
             }
 
@@ -86,7 +86,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             }
         }
 
-        private bool IsOverlap(int customerId, DateTime startTime, DateTime endTime) {
+        private bool IsOverlap(int customerId, int appointmentId, DateTime startTime, DateTime endTime) {
             string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
@@ -96,6 +96,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 string query = @"
                     SELECT COUNT(*) FROM appointment
                     WHERE  customerId = @customerId
+                    AND appointmentId != @appointmentId
                     AND (start BETWEEN @startTime AND @endTime
                         OR end BETWEEN @startTime AND @endTime
                         OR (@startTime BETWEEN start AND end))";
@@ -104,6 +105,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 cmd.Parameters.AddWithValue("@startTime", startTime);
                 cmd.Parameters.AddWithValue("@endTime", endTime);
                 cmd.Parameters.AddWithValue("@customerId", customerId);
+                cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
 
