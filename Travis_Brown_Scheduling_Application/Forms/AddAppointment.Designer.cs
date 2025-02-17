@@ -174,6 +174,7 @@
             dtpAppStart.Format = DateTimePickerFormat.Custom;
             dtpAppStart.Location = new Point(12, 284);
             dtpAppStart.Name = "dtpAppStart";
+            dtpAppStart.ShowUpDown = true;
             dtpAppStart.Size = new Size(200, 23);
             dtpAppStart.TabIndex = 9;
             // 

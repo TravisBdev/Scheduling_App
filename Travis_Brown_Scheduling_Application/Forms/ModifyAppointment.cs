@@ -37,12 +37,25 @@ namespace Travis_Brown_Scheduling_Application.Forms {
 
             DateTime selectedDate = dtpModAppDatePicker.Value.Date;
             TimeSpan selectedTime = dtpModAppStart.Value.TimeOfDay;
-            DateTime localStart = selectedDate.Add(selectedTime);
-            DateTime easternStart = TimeZoneInfo.ConvertTime(localStart, TimeZoneInfo.Local, easternTime);
-            DateTime easternEnd = easternStart.AddHours(1);
 
-            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(easternStart, easternTime);
+            DateTime localStart = selectedDate.Add(selectedTime);
+            TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
+
+            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(localStart, localTimeZone);
+
+            DateTime easternStart = TimeZoneInfo.ConvertTimeFromUtc(utcStart, easternTime);
+            
+            DateTime easternEnd = new DateTime(
+                    easternStart.Year,
+                    easternStart.Month,
+                    easternStart.Day,
+                    easternStart.Hour + 1,
+                    0,
+                    0
+                );
             DateTime utcEnd = TimeZoneInfo.ConvertTimeToUtc(easternEnd, easternTime);
+
+
 
             if (easternStart.TimeOfDay < new TimeSpan(9, 0, 0) || easternEnd.TimeOfDay > new TimeSpan(17, 0, 0)) {
                 MessageBox.Show("Appointments must be scheduled between 9:00 AM and 5:00 PM ET", "Select New Time", MessageBoxButtons.OK);

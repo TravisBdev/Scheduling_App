@@ -120,7 +120,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 MessageBox.Show($"{ex.Message}");
             }
 
-            ModifyAppointment modAppForm = new(appointmentId, customerId, appointmentType, start, end);
+            ModifyAppointment modAppForm = new(appointmentId, customerId, appointmentType, start);
             this.Hide();
             modAppForm.ShowDialog();
             PopulateAppointmentsList();

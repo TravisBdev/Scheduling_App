@@ -66,16 +66,29 @@ namespace Travis_Brown_Scheduling_Application.Forms {
 
             int customerId = Convert.ToInt32(dgvAppCustomerList.SelectedRows[0].Cells["customer_Id"].Value);
             string appointmentType = rbOnline.Checked ? "Online" : "In-Person";
-            DateTime localStart = dtpAppStart.Value;
-            DateTime easternStart = TimeZoneInfo.ConvertTime(localStart, TimeZoneInfo.Local, easternTime);
-            DateTime easternEnd = easternStart.AddHours(1);
 
-            if(easternStart.TimeOfDay < new TimeSpan(9, 0, 0) || easternEnd.TimeOfDay > new TimeSpan(17, 0, 0)) {
+            DateTime selectedDate = dtpAppDaySelect.Value.Date;
+            TimeSpan selectedTime = dtpAppStart.Value.TimeOfDay;
+            DateTime localStart = selectedDate.Add(selectedTime);
+
+            TimeZoneInfo localTimeZone = TimeZoneInfo.Local;
+            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(localStart, localTimeZone);
+            DateTime easternStart = TimeZoneInfo.ConvertTimeFromUtc(utcStart, easternTime);
+            DateTime easternEnd = new DateTime(
+                    easternStart.Year,
+                    easternStart.Month,
+                    easternStart.Day,
+                    easternStart.Hour + 1,
+                    0,
+                    0
+                );
+
+
+            if (easternStart.TimeOfDay < new TimeSpan(9, 0, 0) || easternEnd.TimeOfDay > new TimeSpan(17, 0, 0)) {
                 MessageBox.Show("Appointments must be scheduled between 9:00 AM and 5:00 PM ET", "Select New Time", MessageBoxButtons.OK);
                 return;
             }
 
-            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(easternStart, easternTime);
             DateTime utcEnd = TimeZoneInfo.ConvertTimeToUtc(easternEnd, easternTime);
             
 
@@ -90,7 +103,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             try {
                 conn.Open();
                 int userId = LoggedInUser.UserId;
-                string title = "Appintment";
+                string title = "Appointment";
                 string description = "Appointment";
                 string location = rbOnline.Checked ? "Online" : "In-Person";
                 string contact = "admin";
@@ -149,7 +162,9 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                     return true;
                 }
 
-            } catch (Exception ex) { }
+            } catch (Exception ex) {
+                MessageBox.Show($"{ex.Message}");
+            }
 
             return false;
         }
