@@ -14,12 +14,11 @@ namespace Travis_Brown_Scheduling_Application.Forms {
     public partial class ModifyAppointment : Form {
         private int appointmentId;
         private int customerId;
-        public ModifyAppointment(int appId, int cusId, string appointmentType, DateTime start, DateTime end) {
+        public ModifyAppointment(int appId, int cusId, string appointmentType, DateTime start) {
             InitializeComponent();
             appointmentId = appId;
             customerId = cusId;
             DateTime localStart = TimeZoneInfo.ConvertTimeFromUtc(start, TimeZoneInfo.Local);
-            DateTime localEnd = TimeZoneInfo.ConvertTimeFromUtc(end, TimeZoneInfo.Local);
 
             if (appointmentType == "Online") {
                 rbModOnline.Checked = true;
@@ -28,31 +27,34 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             }
 
             dtpModAppDatePicker.Value = localStart.Date;
-            cbModAppTimeSelect.SelectedItem = $"{localStart:t} - {localEnd:t}";
+            dtpModAppStart.Value = localStart;
         }
 
         private void btnModSave_Click(object sender, EventArgs e) {
-            TimeZoneInfo local = TimeZoneInfo.Local;
-            TimeZoneInfo utc = TimeZoneInfo.Utc;
-            string appointmentType = rbModOnline.Checked ? "Online" : "In-Person";
-            DateTime selectedDate = dtpModAppDatePicker.Value.Date;
-            string[] range = cbModAppTimeSelect.SelectedItem.ToString().Split("-");
-            DateTime localStart = DateTime.Parse(selectedDate.ToShortDateString() + " " + range[0].Trim());
-            DateTime localEnd = DateTime.Parse(selectedDate.ToShortDateString() + " " + range[1].Trim());
-            DateTime start = TimeZoneInfo.ConvertTimeToUtc(localStart, local);
-            DateTime end = TimeZoneInfo.ConvertTimeToUtc(localEnd, local);
+            TimeZoneInfo easternTime = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
-            TimeZoneInfo eastern = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-            DateTime easternStart = TimeZoneInfo.ConvertTime(start, eastern);
-            DateTime easternEnd = TimeZoneInfo.ConvertTime(end, eastern);
+            string appointmentType = rbModOnline.Checked ? "Online" : "In-Person";
+
+            DateTime selectedDate = dtpModAppDatePicker.Value.Date;
+            TimeSpan selectedTime = dtpModAppStart.Value.TimeOfDay;
+            DateTime localStart = selectedDate.Add(selectedTime);
+            DateTime easternStart = TimeZoneInfo.ConvertTime(localStart, TimeZoneInfo.Local, easternTime);
+            DateTime easternEnd = easternStart.AddHours(1);
+
+            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(easternStart, easternTime);
+            DateTime utcEnd = TimeZoneInfo.ConvertTimeToUtc(easternEnd, easternTime);
 
             if (easternStart.TimeOfDay < new TimeSpan(9, 0, 0) || easternEnd.TimeOfDay > new TimeSpan(17, 0, 0)) {
-                MessageBox.Show("Appointments must be made between 9:00 AM and 5:00 PM EST.", "Whoops", MessageBoxButtons.OK);
+                MessageBox.Show("Appointments must be scheduled between 9:00 AM and 5:00 PM ET", "Select New Time", MessageBoxButtons.OK);
                 return;
             }
 
-            if (dtpModAppDatePicker.Value.DayOfWeek == DayOfWeek.Saturday || dtpModAppDatePicker.Value.DayOfWeek == DayOfWeek.Sunday) {
+            if (selectedDate.DayOfWeek == DayOfWeek.Saturday || selectedDate.DayOfWeek == DayOfWeek.Sunday) {
                 MessageBox.Show("Appointment times are only available Monday through Friday.", "Invalid Date", MessageBoxButtons.OK);
+                return;
+            }
+
+            if(IsOverlap(customerId, utcStart, utcEnd)) {
                 return;
             }
 
@@ -69,8 +71,8 @@ namespace Travis_Brown_Scheduling_Application.Forms {
 
                 using MySqlCommand cmd = new(query, conn);
                 cmd.Parameters.AddWithValue("@type", appointmentType);
-                cmd.Parameters.AddWithValue("@start", start);
-                cmd.Parameters.AddWithValue("@end", end);
+                cmd.Parameters.AddWithValue("@start", utcStart);
+                cmd.Parameters.AddWithValue("@end", utcEnd);
                 cmd.Parameters.AddWithValue("@appointmentId", appointmentId);
 
                 cmd.ExecuteNonQuery();
@@ -82,6 +84,39 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             } catch (Exception ex) {
                 MessageBox.Show($"{ex.Message}");
             }
+        }
+
+        private bool IsOverlap(int customerId, DateTime startTime, DateTime endTime) {
+            string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
+
+            using MySqlConnection conn = new(connectionString);
+
+            try {
+                conn.Open();
+                string query = @"
+                    SELECT COUNT(*) FROM appointment
+                    WHERE  customerId = @customerId
+                    AND (start BETWEEN @startTime AND @endTime
+                        OR end BETWEEN @startTime AND @endTime
+                        OR (@startTime BETWEEN start AND end))";
+
+                using MySqlCommand cmd = new(query, conn);
+                cmd.Parameters.AddWithValue("@startTime", startTime);
+                cmd.Parameters.AddWithValue("@endTime", endTime);
+                cmd.Parameters.AddWithValue("@customerId", customerId);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (count > 0) {
+                    MessageBox.Show("Your selection overlaps with an existing appointment.", "Please choose another time.", MessageBoxButtons.OK);
+                    return true;
+                }
+
+            } catch (Exception ex) {
+                MessageBox.Show($"{ex.Message}");
+            }
+
+            return false;
         }
 
         private void btnModExit_Click(object sender, EventArgs e) {

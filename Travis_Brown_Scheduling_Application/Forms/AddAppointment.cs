@@ -47,6 +47,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
+            TimeZoneInfo easternTime = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             if (dgvAppCustomerList.SelectedRows.Count == 0) {
                 MessageBox.Show("Please select a customer.", "Whoops", MessageBoxButtons.OK);
                 return;
@@ -62,61 +63,24 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 return;
             }
 
-            if (cbAppTimeSelect.SelectedIndex == -1) {
-                MessageBox.Show("Please select an appointment time.", "Whoops", MessageBoxButtons.OK);
-                return;
-            }
 
             int customerId = Convert.ToInt32(dgvAppCustomerList.SelectedRows[0].Cells["customer_Id"].Value);
             string appointmentType = rbOnline.Checked ? "Online" : "In-Person";
-            DateTime dateSelected = dtpAppDaySelect.Value.Date;
-            string timeSelected = cbAppTimeSelect.SelectedItem.ToString();
-
-            TimeZoneInfo local = TimeZoneInfo.Local;
-            TimeZoneInfo utc = TimeZoneInfo.Utc;
-
-            DateTime localStart;
-            DateTime localEnd;
-
-            switch (timeSelected) {
-                case "9:00 AM - 10:00 AM":
-                    localStart = DateTime.ParseExact("09:00 AM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    localEnd = DateTime.ParseExact("10:00 AM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    break;
-                case "10:30 AM - 11:30 AM":
-                    localStart = DateTime.ParseExact("10:30 AM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    localEnd = DateTime.ParseExact("11:30 AM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    break;
-                case "1:00 PM - 2:00 PM":
-                    localStart = DateTime.ParseExact("01:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    localEnd = DateTime.ParseExact("02:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    break;
-                case "2:30 PM - 3:30 PM":
-                    localStart = DateTime.ParseExact("02:30 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    localEnd = DateTime.ParseExact("03:30 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    break;
-                case "4:00 PM - 5:00 PM":
-                    localStart = DateTime.ParseExact("04:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    localEnd = DateTime.ParseExact("05:00 PM", "hh:mm tt", CultureInfo.InvariantCulture);
-                    break;
-                default:
-                    MessageBox.Show("Time slot is not valid", "Error", MessageBoxButtons.OK);
-                    return;
-            }
-
-            DateTime startTime = TimeZoneInfo.ConvertTimeToUtc(dateSelected.Add(localStart.TimeOfDay), local);
-            DateTime endTime = TimeZoneInfo.ConvertTimeToUtc(dateSelected.Add(localEnd.TimeOfDay), local);
-            TimeZoneInfo eastern = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-            DateTime easternStart = TimeZoneInfo.ConvertTime(startTime, eastern);
-            DateTime easternEnd = TimeZoneInfo.ConvertTime(endTime, eastern);
+            DateTime localStart = dtpAppStart.Value;
+            DateTime easternStart = TimeZoneInfo.ConvertTime(localStart, TimeZoneInfo.Local, easternTime);
+            DateTime easternEnd = easternStart.AddHours(1);
 
             if(easternStart.TimeOfDay < new TimeSpan(9, 0, 0) || easternEnd.TimeOfDay > new TimeSpan(17, 0, 0)) {
-                MessageBox.Show("Appointments must be made between 9:00 AM and 5:00 PM EST.", "Whoops", MessageBoxButtons.OK);
+                MessageBox.Show("Appointments must be scheduled between 9:00 AM and 5:00 PM ET", "Select New Time", MessageBoxButtons.OK);
                 return;
             }
 
+            DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(easternStart, easternTime);
+            DateTime utcEnd = TimeZoneInfo.ConvertTimeToUtc(easternEnd, easternTime);
+            
 
-            if (IsOverlap(startTime, endTime)) {
+
+            if (IsOverlap(customerId, utcStart, utcEnd)) {
                 return;
             }
 
@@ -145,8 +109,8 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 cmd.Parameters.AddWithValue("@contact", contact);
                 cmd.Parameters.AddWithValue("@type", appointmentType);
                 cmd.Parameters.AddWithValue("@url", url);
-                cmd.Parameters.AddWithValue("@start", startTime);
-                cmd.Parameters.AddWithValue("@end", endTime);
+                cmd.Parameters.AddWithValue("@start", utcStart);
+                cmd.Parameters.AddWithValue("@end", utcEnd);
 
                 cmd.ExecuteNonQuery();
                 this.Hide();
@@ -159,7 +123,7 @@ namespace Travis_Brown_Scheduling_Application.Forms {
             }
         }
 
-        private bool IsOverlap(DateTime startTime, DateTime endTime) {
+        private bool IsOverlap( int customerId, DateTime startTime, DateTime endTime) {
             string connectionString = "server=localhost;user=sqlUser;database=client_schedule;port=3306;password=Passw0rd!";
 
             using MySqlConnection conn = new(connectionString);
@@ -168,13 +132,15 @@ namespace Travis_Brown_Scheduling_Application.Forms {
                 conn.Open();
                 string query = @"
                     SELECT COUNT(*) FROM appointment
-                    WHERE (start BETWEEN @startTime AND @endTime
+                    WHERE  customerId = @customerId
+                    AND (start BETWEEN @startTime AND @endTime
                         OR end BETWEEN @startTime AND @endTime
                         OR (@startTime BETWEEN start AND end))";
 
                 using MySqlCommand cmd = new(query, conn);
                 cmd.Parameters.AddWithValue("@startTime", startTime);
                 cmd.Parameters.AddWithValue("@endTime", endTime);
+                cmd.Parameters.AddWithValue("@customerId", customerId);
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
 
