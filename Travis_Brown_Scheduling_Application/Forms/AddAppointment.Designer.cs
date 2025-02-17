@@ -34,10 +34,10 @@
             label1 = new Label();
             dtpAppDaySelect = new DateTimePicker();
             label2 = new Label();
-            cbAppTimeSelect = new ComboBox();
             label3 = new Label();
             btnCancel = new Button();
             btnSave = new Button();
+            dtpAppStart = new DateTimePicker();
             gbAppointmentType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAppCustomerList).BeginInit();
             SuspendLayout();
@@ -139,16 +139,6 @@
             label2.TabIndex = 4;
             label2.Text = "Select Day (Mon-Fri)";
             // 
-            // cbAppTimeSelect
-            // 
-            cbAppTimeSelect.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbAppTimeSelect.FormattingEnabled = true;
-            cbAppTimeSelect.Items.AddRange(new object[] { "9:00 AM - 10:00 AM", "10:30 AM - 11:30 AM", "1:00 PM - 2:00 PM", "2:30 PM - 3:30 PM", "4:00 PM - 5:00 PM" });
-            cbAppTimeSelect.Location = new Point(12, 284);
-            cbAppTimeSelect.Name = "cbAppTimeSelect";
-            cbAppTimeSelect.Size = new Size(121, 23);
-            cbAppTimeSelect.TabIndex = 5;
-            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -178,15 +168,24 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
+            // dtpAppStart
+            // 
+            dtpAppStart.CustomFormat = "hh:mm tt";
+            dtpAppStart.Format = DateTimePickerFormat.Custom;
+            dtpAppStart.Location = new Point(12, 284);
+            dtpAppStart.Name = "dtpAppStart";
+            dtpAppStart.Size = new Size(200, 23);
+            dtpAppStart.TabIndex = 9;
+            // 
             // AddAppointment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dtpAppStart);
             Controls.Add(btnSave);
             Controls.Add(btnCancel);
             Controls.Add(label3);
-            Controls.Add(cbAppTimeSelect);
             Controls.Add(label2);
             Controls.Add(dtpAppDaySelect);
             Controls.Add(label1);
@@ -211,7 +210,6 @@
         private Label label1;
         private DateTimePicker dtpAppDaySelect;
         private Label label2;
-        private ComboBox cbAppTimeSelect;
         private Label label3;
         private Button btnCancel;
         private Button btnSave;
@@ -219,5 +217,6 @@
         private DataGridViewTextBoxColumn customer_Name;
         private DataGridViewTextBoxColumn customer_address;
         private DataGridViewTextBoxColumn phone_number;
+        private DateTimePicker dtpAppStart;
     }
 }

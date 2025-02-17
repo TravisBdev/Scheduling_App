@@ -27,11 +27,11 @@
             rbModInPerson = new RadioButton();
             rbModOnline = new RadioButton();
             dtpModAppDatePicker = new DateTimePicker();
-            cbModAppTimeSelect = new ComboBox();
             btnModSave = new Button();
             btnModExit = new Button();
             label1 = new Label();
             label2 = new Label();
+            dtpModAppStart = new DateTimePicker();
             gbModAppType.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,15 +76,6 @@
             dtpModAppDatePicker.Size = new Size(200, 23);
             dtpModAppDatePicker.TabIndex = 1;
             // 
-            // cbModAppTimeSelect
-            // 
-            cbModAppTimeSelect.FormattingEnabled = true;
-            cbModAppTimeSelect.Items.AddRange(new object[] { "9:00 AM - 10:00 AM", "10:30 AM - 11:30 AM", "1:00 PM - 2:00 PM", "2:30 PM - 3:30 PM", "4:00 PM - 5:00 PM" });
-            cbModAppTimeSelect.Location = new Point(12, 276);
-            cbModAppTimeSelect.Name = "cbModAppTimeSelect";
-            cbModAppTimeSelect.Size = new Size(121, 23);
-            cbModAppTimeSelect.TabIndex = 2;
-            // 
             // btnModSave
             // 
             btnModSave.Location = new Point(12, 419);
@@ -123,16 +114,26 @@
             label2.TabIndex = 6;
             label2.Text = "Select Time";
             // 
+            // dtpModAppStart
+            // 
+            dtpModAppStart.CustomFormat = "hh:mm tt";
+            dtpModAppStart.Format = DateTimePickerFormat.Custom;
+            dtpModAppStart.Location = new Point(12, 276);
+            dtpModAppStart.Name = "dtpModAppStart";
+            dtpModAppStart.ShowUpDown = true;
+            dtpModAppStart.Size = new Size(200, 23);
+            dtpModAppStart.TabIndex = 7;
+            // 
             // ModifyAppointment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(325, 454);
+            Controls.Add(dtpModAppStart);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnModExit);
             Controls.Add(btnModSave);
-            Controls.Add(cbModAppTimeSelect);
             Controls.Add(dtpModAppDatePicker);
             Controls.Add(gbModAppType);
             Name = "ModifyAppointment";
@@ -149,10 +150,10 @@
         private RadioButton rbModInPerson;
         private RadioButton rbModOnline;
         private DateTimePicker dtpModAppDatePicker;
-        private ComboBox cbModAppTimeSelect;
         private Button btnModSave;
         private Button btnModExit;
         private Label label1;
         private Label label2;
+        private DateTimePicker dtpModAppStart;
     }
 }
